@@ -1126,12 +1126,18 @@ a, button {
   .cursor-dot {
     display: none !important;
   }
-}
 
- @ m e d i a   ( m a x - w i d t h :   7 6 8 p x )   { 
-     . f o o t e r - c o n t e n t   {   f l e x - d i r e c t i o n :   c o l u m n ;   g a p :   1 . 5 r e m ;   t e x t - a l i g n :   c e n t e r ;   } 
-     . f o o t e r - l o g o   {   d i s p l a y :   n o n e ;   } 
-     . f o o t e r   {   p a d d i n g :   2 r e m   1 . 5 r e m ;   } 
- } 
-  
- 
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    display: none;
+  }
+
+  .footer {
+    padding: 2rem 1.5rem;
+  }
+}
