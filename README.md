@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# 🎌 Thiago Ventura - Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um portfólio de Desenvolvedor Web moderno, altamente imersivo e com foco em performance, inspirado profundamente na elegância da temática samurai (especificamente em menção a Roronoa Zoro de One Piece). 
 
-Currently, two official plugins are available:
+Este projeto combina a solidez do **React** com interações impressionantes em 3D nativas de navegador, usando **Three.js** e scroll-animations baseadas na física avançada do **GSAP**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Principais Features
 
-## React Compiler
+- **Katana 3D Dinâmica (WebGL):** Modelo 3D interativo de uma espada (Katana) renderizada via Fiber, que acompanha suavemente a rolagem do usuário ao longo das 5 seções do site, reagindo de forma orgânica a redimensionamentos sem perdas (`frustumCulled` fixado) nas mais diversas resoluções de tela (*Viewports*).
+- **Responsive Mobile-First:** A experiência flui perfeitamente desde celulares minúsculos até monitores ultra-wide. O Menu Mobile adota uma modernização limpa de **Glassmorphism modal** para economia inteligente do espaço real (Screen Estate).
+- **Animações Cinematográficas:** Transições de letreiros letra a letra controladas por ref (`innerHTML.split()`), revelações robustas por rolagem (`ScrollTrigger`) e um moderno e belo Preloader Dourado blindando o site em seus primeiros milissegundos críticos.
+- **Efeitos e Micro-interações:** Interações de hover refinadas que geram trilhos dourados estilo lâmina ("Slashes") em C-Level CTA buttons, e um fluido e denso carrossel manual avançado reescrevendo a listagem de projetos passados baseada em arrasto, scroll e toques.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 💻 Tech Stack
 
-## Expanding the ESLint configuration
+- **[React 18](https://react.dev/)** + **[TypeScript](https://www.typescriptlang.org/)**: O motor centralizado da UI, amparado por tipagem estática absoluta e arquitetura modular de alto nível.
+- **[Vite](https://vitejs.dev/)**: O Bundler da nova geração, rodando o desenvolvimento através de HMR (Hot Module Replacement) instantâneo.
+- **[Three.js](https://threejs.org/)** / **[@react-three/fiber](https://docs.pmnd.rs/react-three-fiber)** / **[@drei]**: Motor de computação de profundidades WebGL 3D otimizado via declaratividade em componentes JSX, cuidando inteiramente do render, sombras, lightbaking e posições reativas.
+- **[GSAP](https://gsap.com/)**: Biblioteca premium de animações complexas em JavaScript de alta fluidez cuidando das animações contidas e tracking de frames do usuário pela página.
+- **[Lenis](https://lenis.studiofreight.com/)**: Ferramenta de scroll contínuo e responsivo, normalizando as rolagens desajeitadas para frames suavizados e sedosos de computadores Desktop.
+- **[react-icons](https://react-icons.github.io/react-icons/)**: Importação de biblioteca vetorial polimorfa e inteligente (`import { SiReact, SiDocker } from 'react-icons/si'`). Evitando sobrecarga dom via SVG bruto e elevando a performance extrema de leitura.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🗂 Arquitetura de Views Padrão
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+A navegação foi formatada em Single Page e é estruturalmente regida da seguinte forma:
+- `Hero` (/): Entrada principal magnética. Destila estética afiada, tipografia ousada, e engata a primeira impressão assim que o background preloader desaparece.
+- `About` (/sobre): Narrativa técnica conectada orgânica no painel grid de 12 chaves em tecnologias mapeadas. 
+- `Skills` (/habilidades): Profundidade listada separando os conhecimentos em trilhos horizontais com hard-features.
+- `Projects` (/projetos): Galeria flexível disposta nos painéis estilo card em loop e controles responsivos.
+- `Contact` (/contato): Formulário de contato direto e imersivo flertando com uma fina requintagem do design estético global da ponta da espada e um encerramento formidável pelo Footer premium alinhado à risca.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠 Como Rodar Plenamente Este Projeto em Máquina Local
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Se deseja forkar, auditar código, inspecionar a modelagem 3D ou buildá-lo localmente para estudos, confira como executar abaixo:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Você pode iniciar efetuando o Clone deste repositório da web:
+   ```bash
+   git clone https://github.com/ThiagoVenturaV/ThiagoVenturaPortifolio.git
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. Redirecione o terminal para ficar detentor ativo na base do workspace e adicione os binários principais com o instaldor Node:
+   ```bash
+   cd ThiagoVenturaPortifolio
+   npm install
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. Gire a chave de servidor providenciada pelo Vite:
+   ```bash
+   npm run dev
+   ```
+   🚨 O seu terminal providenciará algo similar a `http://localhost:5173/`, é só acessá-lo no Browser (F12 Recomendado) e contemplar!
+
+## 📜 Propriedade & Licenciamento Interno
+
+Concebido como um artefato vivo de código contábil pessoal e demonstrativo de proficiência Front-end. Projetado, desenhado por design system em código puro e refinado exaustivamente por este mantenedor. (Citações visuais, logos, bibliotecas gráficas ou malhas geométricas estão amparadas em seus licenciamentos abertos ou originais). 
+© Thiago Ventura.
