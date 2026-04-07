@@ -186,7 +186,7 @@ export default function Contact() {
         <div className="social-links">
           {/* Instagram */}
           <a
-            href="https://instagram.com/thiagoventura"
+            href="https://instagram.com/th.dev1/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -198,7 +198,7 @@ export default function Contact() {
 
           {/* LinkedIn */}
           <a
-            href="https://linkedin.com/in/thiagoventura"
+            href="https://linkedin.com/in/thiago-ventura-velez/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -210,7 +210,7 @@ export default function Contact() {
 
           {/* GitHub */}
           <a
-            href="https://github.com/thiagoventura"
+            href="https://github.com/thiagoventurav"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -222,7 +222,7 @@ export default function Contact() {
 
           {/* YouTube */}
           <a
-            href="https://youtube.com/@thiagoventura"
+            href="https://www.youtube.com/@ThVenturaDev"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="YouTube"
