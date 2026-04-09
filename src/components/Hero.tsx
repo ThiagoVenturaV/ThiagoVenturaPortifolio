@@ -50,7 +50,7 @@ export default function Hero() {
         .map((char) =>
           char === ' '
             ? '<span class="char" style="width: 0.3em; display: inline-block;">&nbsp;</span>'
-            : `<span class="char">${char}</span>`
+            : `<span class="char">${char}</span>`,
         )
         .join('');
 
@@ -73,7 +73,7 @@ export default function Hero() {
         duration: 0.8,
         ease: 'power2.out',
       },
-      '-=0.3'
+      '-=0.3',
     );
 
     // CTA Buttons
@@ -85,7 +85,7 @@ export default function Hero() {
         duration: 0.8,
         ease: 'power2.out',
       },
-      '-=0.4'
+      '-=0.4',
     );
 
     return () => {
@@ -147,10 +147,18 @@ export default function Hero() {
           className="hero-cta-group"
           style={{ opacity: 0, transform: 'translateY(20px)' }}
         >
-          <a href="#projects" className="btn-primary" onClick={(e) => handleScroll(e, 'projects')}>
+          <a
+            href="#projects"
+            className="btn-primary"
+            onClick={(e) => handleScroll(e, 'projects')}
+          >
             Ver Projetos
           </a>
-          <a href="#contact" className="btn-secondary" onClick={(e) => handleScroll(e, 'contact')}>
+          <a
+            href="#contact"
+            className="btn-secondary"
+            onClick={(e) => handleScroll(e, 'contact')}
+          >
             Contato
           </a>
         </div>
@@ -158,7 +166,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <div className="scroll-indicator">
-        <span>Scroll</span>
+        <span>Deslize</span>
         <div className="scroll-line" />
       </div>
 
