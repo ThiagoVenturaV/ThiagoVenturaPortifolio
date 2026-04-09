@@ -5,6 +5,10 @@ import emailjs from '@emailjs/browser';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
 // Floating particles for this section
 function ContactParticles() {
   const particles = useMemo(() => {
@@ -40,13 +44,15 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<
+    'idle' | 'sending' | 'success' | 'error'
+  >('idle');
 
   useEffect(() => {
     if (!wrapperRef.current) return;
 
     const elements = wrapperRef.current.querySelectorAll(
-      '.section-subtitle, .section-title, .form-group, .btn-submit, .social-links'
+      '.section-subtitle, .section-title, .form-group, .btn-submit, .social-links',
     );
 
     gsap.fromTo(
@@ -63,7 +69,7 @@ export default function Contact() {
           start: 'top 65%',
           toggleActions: 'play none none reverse',
         },
-      }
+      },
     );
 
     return () => {
@@ -77,15 +83,23 @@ export default function Contact() {
     e.preventDefault();
     if (!formRef.current) return;
 
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      console.error(
+        'EmailJS nao configurado. Defina VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID e VITE_EMAILJS_PUBLIC_KEY no .env.local.',
+      );
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+      return;
+    }
+
     setStatus('sending');
 
     try {
-      // Replace these with your EmailJS credentials
       await emailjs.sendForm(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         formRef.current,
-        'YOUR_PUBLIC_KEY'
+        EMAILJS_PUBLIC_KEY,
       );
       setStatus('success');
       formRef.current.reset();
@@ -178,7 +192,8 @@ export default function Contact() {
           )}
           {status === 'error' && (
             <div className="form-status error">
-              ✗ Erro ao enviar. Por favor, tente novamente ou entre em contato por e-mail.
+              ✗ Erro ao enviar. Por favor, tente novamente ou entre em contato
+              por e-mail.
             </div>
           )}
         </form>

@@ -1,12 +1,12 @@
 # 🎌 Thiago Ventura - Portfolio
 
-Um portfólio de Desenvolvedor Web moderno, altamente imersivo e com foco em performance, inspirado profundamente na elegância da temática samurai (especificamente em menção a Roronoa Zoro de One Piece). 
+Um portfólio de Desenvolvedor Web moderno, altamente imersivo e com foco em performance, inspirado profundamente na elegância da temática samurai (especificamente em menção a Roronoa Zoro de One Piece).
 
 Este projeto combina a solidez do **React** com interações impressionantes em 3D nativas de navegador, usando **Three.js** e scroll-animations baseadas na física avançada do **GSAP**.
 
 ## 🚀 Principais Features
 
-- **Katana 3D Dinâmica (WebGL):** Modelo 3D interativo de uma espada (Katana) renderizada via Fiber, que acompanha suavemente a rolagem do usuário ao longo das 5 seções do site, reagindo de forma orgânica a redimensionamentos sem perdas (`frustumCulled` fixado) nas mais diversas resoluções de tela (*Viewports*).
+- **Katana 3D Dinâmica (WebGL):** Modelo 3D interativo de uma espada (Katana) renderizada via Fiber, que acompanha suavemente a rolagem do usuário ao longo das 5 seções do site, reagindo de forma orgânica a redimensionamentos sem perdas (`frustumCulled` fixado) nas mais diversas resoluções de tela (_Viewports_).
 - **Responsive Mobile-First:** A experiência flui perfeitamente desde celulares minúsculos até monitores ultra-wide. O Menu Mobile adota uma modernização limpa de **Glassmorphism modal** para economia inteligente do espaço real (Screen Estate).
 - **Animações Cinematográficas:** Transições de letreiros letra a letra controladas por ref (`innerHTML.split()`), revelações robustas por rolagem (`ScrollTrigger`) e um moderno e belo Preloader Dourado blindando o site em seus primeiros milissegundos críticos.
 - **Efeitos e Micro-interações:** Interações de hover refinadas que geram trilhos dourados estilo lâmina ("Slashes") em C-Level CTA buttons, e um fluido e denso carrossel manual avançado reescrevendo a listagem de projetos passados baseada em arrasto, scroll e toques.
@@ -23,8 +23,9 @@ Este projeto combina a solidez do **React** com interações impressionantes em 
 ## 🗂 Arquitetura de Views Padrão
 
 A navegação foi formatada em Single Page e é estruturalmente regida da seguinte forma:
+
 - `Hero` (/): Entrada principal magnética. Destila estética afiada, tipografia ousada, e engata a primeira impressão assim que o background preloader desaparece.
-- `About` (/sobre): Narrativa técnica conectada orgânica no painel grid de 12 chaves em tecnologias mapeadas. 
+- `About` (/sobre): Narrativa técnica conectada orgânica no painel grid de 12 chaves em tecnologias mapeadas.
 - `Skills` (/habilidades): Profundidade listada separando os conhecimentos em trilhos horizontais com hard-features.
 - `Projects` (/projetos): Galeria flexível disposta nos painéis estilo card em loop e controles responsivos.
 - `Contact` (/contato): Formulário de contato direto e imersivo flertando com uma fina requintagem do design estético global da ponta da espada e um encerramento formidável pelo Footer premium alinhado à risca.
@@ -34,11 +35,13 @@ A navegação foi formatada em Single Page e é estruturalmente regida da seguin
 Se deseja forkar, auditar código, inspecionar a modelagem 3D ou buildá-lo localmente para estudos, confira como executar abaixo:
 
 1. Você pode iniciar efetuando o Clone deste repositório da web:
+
    ```bash
    git clone https://github.com/ThiagoVenturaV/ThiagoVenturaPortifolio.git
    ```
 
 2. Redirecione o terminal para ficar detentor ativo na base do workspace e adicione os binários principais com o instaldor Node:
+
    ```bash
    cd ThiagoVenturaPortifolio
    npm install
@@ -50,7 +53,31 @@ Se deseja forkar, auditar código, inspecionar a modelagem 3D ou buildá-lo loca
    ```
    🚨 O seu terminal providenciará algo similar a `http://localhost:5173/`, é só acessá-lo no Browser (F12 Recomendado) e contemplar!
 
+## 📧 Configurando o EmailJS (Formulario de Contato)
+
+O projeto ja possui integracao com o pacote `@emailjs/browser` no componente de contato.
+
+1. Crie conta em [EmailJS](https://www.emailjs.com/) e faça login.
+2. Em `Email Services`, conecte seu e-mail (Gmail, Outlook etc.) e copie o `Service ID`.
+3. Em `Email Templates`, crie um template e copie o `Template ID`.
+4. No template, use as variaveis abaixo (iguais aos `name` dos campos do formulario):
+   - `{{user_name}}`
+   - `{{user_email}}`
+   - `{{message}}`
+5. Em `Account > General`, copie sua `Public Key`.
+6. Na raiz do projeto, crie um arquivo `.env.local` com base no `.env.example`:
+
+   ```env
+   VITE_EMAILJS_SERVICE_ID=service_xxxxxxx
+   VITE_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+   VITE_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxxx
+   ```
+
+7. Reinicie o servidor (`npm run dev`) e teste o envio pelo formulario.
+
+Se der erro no envio, abra o console do navegador para verificar se alguma variavel de ambiente nao foi preenchida.
+
 ## 📜 Propriedade & Licenciamento Interno
 
-Concebido como um artefato vivo de código contábil pessoal e demonstrativo de proficiência Front-end. Projetado, desenhado por design system em código puro e refinado exaustivamente por este mantenedor. (Citações visuais, logos, bibliotecas gráficas ou malhas geométricas estão amparadas em seus licenciamentos abertos ou originais). 
+Concebido como um artefato vivo de código contábil pessoal e demonstrativo de proficiência Front-end. Projetado, desenhado por design system em código puro e refinado exaustivamente por este mantenedor. (Citações visuais, logos, bibliotecas gráficas ou malhas geométricas estão amparadas em seus licenciamentos abertos ou originais).
 © Thiago Ventura.
