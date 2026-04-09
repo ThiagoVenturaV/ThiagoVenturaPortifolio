@@ -53,7 +53,13 @@ function App() {
 
         <footer className="footer">
           <div className="footer-content">
-            <span className="footer-logo">TV</span>
+            <a href="#hero" className="footer-logo" aria-label="Voltar para o topo">
+              <img
+                src="/logozoroquadradaSemFundo.png"
+                alt="Logo Thiago Ventura"
+                className="footer-logo-img"
+              />
+            </a>
             <p>
               Desenvolvido por Thiago Ventura <br/>
               © {new Date().getFullYear()} — Todos os direitos reservados.

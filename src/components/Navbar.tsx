@@ -26,7 +26,10 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string,
+  ) => {
     e.preventDefault();
     setMenuOpen(false);
     const target = document.getElementById(targetId);
@@ -40,8 +43,16 @@ export default function Navbar() {
       ref={navRef}
       className={`navbar ${scrolled ? 'scrolled' : ''} ${hidden ? 'hidden' : ''}`}
     >
-      <a href="#hero" className="nav-logo" onClick={(e) => handleNavClick(e, 'hero')}>
-        TV
+      <a
+        href="#hero"
+        className="nav-logo"
+        onClick={(e) => handleNavClick(e, 'hero')}
+      >
+        <img
+          src="/logozoroquadradaSemFundo.png"
+          alt="Logo Thiago Ventura"
+          className="nav-logo-img"
+        />
       </a>
 
       <button

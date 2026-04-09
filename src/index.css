@@ -161,12 +161,17 @@ a, button {
 }
 
 .nav-logo {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
-  letter-spacing: 0.15em;
-  font-weight: 600;
+  line-height: 0;
+}
+
+.nav-logo-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
 }
 
 .nav-links {
@@ -834,11 +839,17 @@ a, button {
 }
 
 .footer-logo {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-  opacity: 0.8;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.footer-logo-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
 }
 
 .footer p {
@@ -1134,7 +1145,12 @@ a, button {
   }
 
   .footer-logo {
-    display: none;
+    display: inline-flex;
+  }
+
+  .footer-logo-img {
+    width: 52px;
+    height: 52px;
   }
 
   .footer {
