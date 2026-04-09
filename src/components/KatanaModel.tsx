@@ -31,8 +31,8 @@ const scrollStore = { target: 0 };
 
 export default function KatanaModel() {
   const groupRef = useRef<THREE.Group>(null);
-  const idle     = useRef(0);
-  const smooth   = useRef(0);
+  const idle = useRef(0);
+  const smooth = useRef(0);
 
   const gltf = useGLTF('/katana.glb');
 
@@ -46,8 +46,8 @@ export default function KatanaModel() {
         if (child.material) {
           const mat = child.material as THREE.MeshStandardMaterial;
           mat.envMapIntensity = 3.0;
-          mat.needsUpdate     = true;
-          child.castShadow    = true;
+          mat.needsUpdate = true;
+          child.castShadow = true;
           child.receiveShadow = true;
         }
       }
@@ -58,10 +58,10 @@ export default function KatanaModel() {
   // Scroll → progress 0–4  (hero=0, about=1, skills=2, projects=3, contact=4)
   useEffect(() => {
     const calc = () => {
-      const ids  = ['hero', 'about', 'skills', 'projects', 'contact'];
-      const tops = ids.map(id => document.getElementById(id)?.offsetTop ?? 0);
-      const y    = window.scrollY;
-      
+      const ids = ['hero', 'about', 'skills', 'projects', 'contact'];
+      const tops = ids.map((id) => document.getElementById(id)?.offsetTop ?? 0);
+      const y = window.scrollY;
+
       // Prevent division by zero if layout isn't fully ready yet
       if (tops[tops.length - 1] === 0) return 0;
 
@@ -73,9 +73,11 @@ export default function KatanaModel() {
       }
       return 4;
     };
-    const onScroll = () => { scrollStore.target = calc(); };
+    const onScroll = () => {
+      scrollStore.target = calc();
+    };
     onScroll();
-    
+
     // Fallback recalculations because DOM layout might take a few ms to stabilize:
     const t1 = setTimeout(onScroll, 300);
     const t2 = setTimeout(onScroll, 2500);
@@ -96,66 +98,68 @@ export default function KatanaModel() {
     if (Number.isNaN(scrollStore.target)) scrollStore.target = 0;
     if (Number.isNaN(smooth.current)) smooth.current = 0;
 
-    idle.current   += dt;
+    idle.current += dt;
     smooth.current += (scrollStore.target - smooth.current) * 0.06;
     const p = smooth.current;
 
-    const bob    = Math.sin(idle.current * 0.80) * 0.025;
+    const bob = Math.sin(idle.current * 0.8) * 0.025;
     const wobble = Math.sin(idle.current * 0.55) * 0.012;
 
     let px: number, py: number;
-    let rx = 0, ry = 0, rz: number;
+    let rx = 0,
+      ry = 0,
+      rz: number;
     let scl: number;
 
     const isMobile = window.innerWidth < 768;
     // On small screens, frustum width is much smaller. Values adjusted to fit nicely.
-    const xBaseCenter = isMobile ? 0.3  : 0.6;
-    const xRight      = isMobile ? 0.8  : 3.2;   // keep closer to the center to not overflow screen bounds
-    const xLeft       = isMobile ? -0.8 : -3.2;
-    const sclBase     = isMobile ? 0.35 : 0.60;
-    const sclHero     = isMobile ? 0.45 : 0.65;
+    const xBaseCenter = isMobile ? 0.3 : 0.6;
+    const xRight = isMobile ? 0.8 : 3.2; // keep closer to the center to not overflow screen bounds
+    const xLeft = isMobile ? -0.8 : -3.2;
+    const sclBase = isMobile ? 0.35 : 0.6;
+    const sclHero = isMobile ? 0.45 : 0.65;
 
     // ── 0→1  Hero → Sobre ─────────────────────────────────
     // Horizontal centered → Vertical right, tip up
     if (p <= 1) {
       const t = p;
-      px  = L( xBaseCenter, xRight, t);
-      py  = L( 0.8, -0.6, t);
-      rz  = L(Math.PI / 2, 0, t);
-      ry  = L( 0.2, -0.1, t);
-      rx  = L( 0.05, 0.0, t);
-      scl = L( sclHero, sclBase, t);
+      px = L(xBaseCenter, xRight, t);
+      py = L(0.8, -0.6, t);
+      rz = L(Math.PI / 2, 0, t);
+      ry = L(0.2, -0.1, t);
+      rx = L(0.05, 0.0, t);
+      scl = L(sclHero, sclBase, t);
 
-    // ── 1→2  Sobre → Habilidades  (slash: tip-up → tip-down) ─
+      // ── 1→2  Sobre → Habilidades  (slash: tip-up → tip-down) ─
     } else if (p <= 2) {
       const t = p - 1;
-      px  = xRight;
-      py  = L(-0.6,  0.6, t);   // compensates visual center flip
-      rz  = t * Math.PI;         // 0 → π
-      ry  = L(-0.1,  0.1, t);
-      rx  = Math.sin(t * Math.PI) * 0.2;
+      px = xRight;
+      py = L(-0.6, 0.6, t); // compensates visual center flip
+      rz = t * Math.PI; // 0 → π
+      ry = L(-0.1, 0.1, t);
+      rx = Math.sin(t * Math.PI) * 0.2;
       scl = sclBase;
 
-    // ── 2→3  Habilidades → Projetos ───────────────────────
-    // Vertical right tip-down → Horizontal centered near title
+      // ── 2→3  Habilidades → Projetos ───────────────────────
+      // Vertical right tip-down → Horizontal centered near title
     } else if (p <= 3) {
       const t = p - 2;
-      px  = L( xRight, xBaseCenter, t);
-      py  = L( 0.6,  1.1, t);
-      rz  = L(Math.PI, Math.PI / 2, t);   // tip-down → horizontal
-      ry  = L( 0.1,  0.2, t);
-      rx  = 0;
+      px = L(xRight, xBaseCenter, t);
+      py = L(0.6, 1.1, t);
+      rz = L(Math.PI, Math.PI / 2, t); // tip-down → horizontal
+      ry = L(0.1, 0.2, t);
+      rx = 0;
       scl = sclBase;
 
-    // ── 3→4  Projetos → Contato ───────────────────────────
-    // Horizontal centered → Vertical LEFT, tip down
+      // ── 3→4  Projetos → Contato ───────────────────────────
+      // Horizontal centered → Vertical RIGHT, tip up
     } else {
       const t = p - 3;
-      px  = L( xBaseCenter, xLeft, t);
-      py  = L( 1.1,  0.6, t);
-      rz  = L(Math.PI / 2, Math.PI, t);   // horizontal → tip-down
-      ry  = L( 0.2, -0.1, t);
-      rx  = 0;
+      px = L(xBaseCenter, xRight, t);
+      py = L(1.1, -0.6, t);
+      rz = L(Math.PI / 2, 0, t); // horizontal → tip-up
+      ry = L(0.2, -0.1, t);
+      rx = 0;
       scl = sclBase;
     }
 
@@ -172,7 +176,14 @@ export default function KatanaModel() {
       <ambientLight intensity={0.3} />
       <directionalLight position={[5, 5, 5]} intensity={1.5} castShadow />
       <pointLight position={[-3, 2, 2]} intensity={0.8} color="#c9a84c" />
-      <spotLight position={[0, 5, 0]} angle={0.3} penumbra={1} intensity={0.6} color="#c9a84c" castShadow />
+      <spotLight
+        position={[0, 5, 0]}
+        angle={0.3}
+        penumbra={1}
+        intensity={0.6}
+        color="#c9a84c"
+        castShadow
+      />
 
       <group
         ref={groupRef}
