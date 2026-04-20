@@ -8,6 +8,26 @@ interface ChatMessage {
   content: string;
 }
 
+interface NativeSpeechRecognition extends EventTarget {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  maxAlternatives: number;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onend: (() => void) | null;
+  onerror: ((event: { error: string }) => void) | null;
+}
+
+interface SpeechRecognitionEventLike {
+  results: ArrayLike<{
+    isFinal: boolean;
+    0: { transcript: string };
+  }>;
+}
+
 const quickPrompts = [
   'Me passa suas redes de contato.',
   'Qual stack voce usa hoje?',
@@ -26,7 +46,9 @@ export default function AskAiBar() {
   const [isSending, setIsSending] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const logRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<NativeSpeechRecognition | null>(null);
 
   const activateConversationMode = () => {
     setIsExpanded(true);
@@ -72,6 +94,69 @@ export default function AskAiBar() {
       document.body.classList.remove('chat-focus-active');
     };
   }, [isExpanded]);
+
+  useEffect(() => {
+    const nativeWindow = window as Window & {
+      SpeechRecognition?: new () => NativeSpeechRecognition;
+      webkitSpeechRecognition?: new () => NativeSpeechRecognition;
+    };
+
+    const RecognitionCtor =
+      nativeWindow.SpeechRecognition || nativeWindow.webkitSpeechRecognition;
+
+    if (!RecognitionCtor) return;
+
+    const recognition = new RecognitionCtor();
+    recognition.lang = 'pt-BR';
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = (event) => {
+      let finalTranscript = '';
+
+      for (let index = event.results.length - 1; index >= 0; index -= 1) {
+        const result = event.results[index];
+        const transcript = result[0]?.transcript || '';
+
+        if (!transcript) continue;
+
+        if (result.isFinal) {
+          finalTranscript = transcript;
+          break;
+        }
+
+        if (!finalTranscript) {
+          finalTranscript = transcript;
+        }
+      }
+
+      if (finalTranscript) {
+        setInputValue(finalTranscript.trim());
+        activateConversationMode();
+      }
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onerror = (event) => {
+      setIsListening(false);
+      setErrorText(
+        event.error === 'not-allowed'
+          ? 'Microfone bloqueado. Libere a permissao do navegador para usar a voz.'
+          : 'Nao foi possivel usar o microfone neste navegador.',
+      );
+    };
+
+    recognitionRef.current = recognition;
+
+    return () => {
+      recognition.abort();
+      recognitionRef.current = null;
+    };
+  }, []);
 
   const handleShellWheel = (event: WheelEvent<HTMLDivElement>) => {
     const logElement = logRef.current;
@@ -184,6 +269,31 @@ export default function AskAiBar() {
     }
   };
 
+  const toggleMic = () => {
+    const recognition = recognitionRef.current;
+
+    if (!recognition) {
+      setErrorText('Seu navegador nao suporta microfone nativo via Speech Recognition.');
+      return;
+    }
+
+    setErrorText('');
+    activateConversationMode();
+
+    if (isListening) {
+      recognition.stop();
+      setIsListening(false);
+      return;
+    }
+
+    try {
+      recognition.start();
+      setIsListening(true);
+    } catch {
+      setErrorText('Nao foi possivel iniciar o microfone agora. Tente novamente.');
+    }
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     void sendMessage(inputValue);
@@ -238,6 +348,21 @@ export default function AskAiBar() {
       </div>
 
       <form className="ask-ai-form" onSubmit={handleSubmit}>
+        <button
+          type="button"
+          className={`ask-ai-mic-btn${isListening ? ' is-listening' : ''}`}
+          onClick={toggleMic}
+          aria-label={isListening ? 'Parar microfone' : 'Ativar microfone'}
+          aria-pressed={isListening}
+          title={
+            isListening ? 'Parar ditado por voz' : 'Ditado por voz com o microfone'
+          }
+          disabled={isSending}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21H9v2h6v-2h-2v-3.08A7 7 0 0 0 19 11h-2Z" />
+          </svg>
+        </button>
         <input
           type="text"
           value={inputValue}
