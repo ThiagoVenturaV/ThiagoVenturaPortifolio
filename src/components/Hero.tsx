@@ -140,7 +140,7 @@ export default function Hero() {
           className="hero-subtitle"
           style={{ opacity: 0, transform: 'translateY(20px)' }}
         >
-          Desenvolvedor Web
+          Desenvolvedor Fullstack
         </p>
         <div
           ref={ctaRef}
