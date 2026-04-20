@@ -376,6 +376,25 @@ button {
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   padding: 0.8rem;
+  overscroll-behavior: contain;
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.ask-ai-shell-expanded {
+  background: rgba(10, 10, 10, 0.26);
+  border-color: rgba(201, 168, 76, 0.48);
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(201, 168, 76, 0.22);
+  transform: translateY(-8px) scale(1.005);
+}
+
+.ask-ai-shell-expanded .ask-ai-log {
+  max-height: 220px;
 }
 
 .ask-ai-header {
@@ -1306,12 +1325,20 @@ button {
     border-radius: 14px;
   }
 
+  .ask-ai-shell-expanded {
+    transform: translateY(-4px) scale(1.002);
+  }
+
   .ask-ai-header p {
     font-size: 0.72rem;
   }
 
   .ask-ai-log {
     max-height: 95px;
+  }
+
+  .ask-ai-shell-expanded .ask-ai-log {
+    max-height: 145px;
   }
 
   .ask-ai-bubble {
