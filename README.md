@@ -82,6 +82,8 @@ Se der erro no envio, abra o console do navegador para verificar se alguma varia
 
 O chat IA do Hero depende de uma API local em Node + Express (`server/index.js`) e de uma base RAG em `server/data/knowledge-base.json`.
 
+Em producao no Vercel, o projeto usa funcoes serverless nativas em `api/chat.js` e `api/health.js`.
+
 1. Crie um arquivo `.env.local` (ou `.env`) na raiz com base em `.env.example`.
 2. Preencha ao menos os campos abaixo:
 
@@ -106,6 +108,14 @@ O chat IA do Hero depende de uma API local em Node + Express (`server/index.js`)
 - Edite `server/data/knowledge-base.json` para ajustar tom, historias, experiencias e links.
 - O ranking de contexto usa busca lexical em `server/rag/retriever.js`.
 - Se quiser respostas mais longas ou mais curtas, ajuste `temperature` e `max_tokens` em `server/index.js`.
+
+### Variaveis no Vercel
+
+No painel do Vercel, para a IA funcionar, configure estas variaveis:
+
+- `GROQ_API_KEY`
+- `GROQ_MODEL` (opcional, existe fallback para `llama-3.3-70b-versatile`)
+- `RAG_TOP_K` (opcional, existe fallback para `4`)
 
 ## 📜 Propriedade & Licenciamento Interno
 

@@ -27,6 +27,29 @@ export default function AskAiBar() {
   const [errorText, setErrorText] = useState('');
   const logRef = useRef<HTMLDivElement>(null);
 
+  const parseApiPayload = async (response: Response) => {
+    const rawText = await response.text();
+
+    if (!rawText) return {} as Record<string, unknown>;
+
+    try {
+      return JSON.parse(rawText) as Record<string, unknown>;
+    } catch {
+      const normalized = rawText.replace(/\s+/g, ' ').trim();
+
+      if (
+        response.status === 404 ||
+        normalized.toLowerCase().includes('not found')
+      ) {
+        throw new Error(
+          'Endpoint /api/chat nao encontrado. Se estiver local, rode `npm run dev`. No Vercel, confirme o deploy das funcoes em /api.',
+        );
+      }
+
+      throw new Error('Resposta invalida da API de chat.');
+    }
+  };
+
   useEffect(() => {
     const element = logRef.current;
     if (!element) return;
@@ -57,10 +80,14 @@ export default function AskAiBar() {
         }),
       });
 
-      const payload = await response.json();
+      const payload = await parseApiPayload(response);
 
       if (!response.ok) {
-        throw new Error(payload?.error || 'Falha ao falar com a IA.');
+        const apiError =
+          typeof payload?.error === 'string'
+            ? payload.error
+            : 'Falha ao falar com a IA.';
+        throw new Error(apiError);
       }
 
       const assistantText =
@@ -107,8 +134,8 @@ export default function AskAiBar() {
       aria-label="Assistente virtual do Thiago Ventura"
     >
       <div className="ask-ai-header">
-        <span className="ask-ai-badge">ASK AI</span>
-        <p>Converse comigo sobre carreira, stack e contato.</p>
+        <span className="ask-ai-badge">Th.dev</span>
+        <p>Converse "comigo" sobre carreira, stack e contato.</p>
       </div>
 
       <div className="ask-ai-log" ref={logRef}>

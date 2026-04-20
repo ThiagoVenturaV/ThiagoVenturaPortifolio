@@ -6,9 +6,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const knowledgePath = path.resolve(__dirname, '../data/knowledge-base.json');
 
-const knowledgeRaw = fs.readFileSync(knowledgePath, 'utf-8');
-const knowledge = JSON.parse(knowledgeRaw);
-const chunks = Array.isArray(knowledge.chunks) ? knowledge.chunks : [];
+let chunks = [];
+try {
+  const knowledgeRaw = fs.readFileSync(knowledgePath, 'utf-8');
+  const knowledge = JSON.parse(knowledgeRaw);
+  chunks = Array.isArray(knowledge.chunks) ? knowledge.chunks : [];
+} catch (error) {
+  const message = error instanceof Error ? error.message : 'erro desconhecido';
+  console.error(`[RAG] Falha ao carregar knowledge-base: ${message}`);
+}
 
 const stopWords = new Set([
   'que',
