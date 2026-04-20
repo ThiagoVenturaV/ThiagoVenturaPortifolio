@@ -10,6 +10,7 @@ Este projeto combina a solidez do **React** com interações impressionantes em 
 - **Responsive Mobile-First:** A experiência flui perfeitamente desde celulares minúsculos até monitores ultra-wide. O Menu Mobile adota uma modernização limpa de **Glassmorphism modal** para economia inteligente do espaço real (Screen Estate).
 - **Animações Cinematográficas:** Transições de letreiros letra a letra controladas por ref (`innerHTML.split()`), revelações robustas por rolagem (`ScrollTrigger`) e um moderno e belo Preloader Dourado blindando o site em seus primeiros milissegundos críticos.
 - **Efeitos e Micro-interações:** Interações de hover refinadas que geram trilhos dourados estilo lâmina ("Slashes") em C-Level CTA buttons, e um fluido e denso carrossel manual avançado reescrevendo a listagem de projetos passados baseada em arrasto, scroll e toques.
+- **Ask AI com Groq + RAG:** Barra de conversa no Hero com inferência via modelo **llama-3.3-70b-versatile**, usando base de conhecimento local para responder como Thiago e entregar redes de contato durante o papo.
 
 ## 💻 Tech Stack
 
@@ -51,7 +52,7 @@ Se deseja forkar, auditar código, inspecionar a modelagem 3D ou buildá-lo loca
    ```bash
    npm run dev
    ```
-   🚨 O seu terminal providenciará algo similar a `http://localhost:5173/`, é só acessá-lo no Browser (F12 Recomendado) e contemplar!
+   🚨 Agora esse comando sobe o frontend e a API local ao mesmo tempo. O navegador abrirá algo similar a `http://localhost:5173/`.
 
 ## 📧 Configurando o EmailJS (Formulario de Contato)
 
@@ -76,6 +77,35 @@ O projeto ja possui integracao com o pacote `@emailjs/browser` no componente de 
 7. Reinicie o servidor (`npm run dev`) e teste o envio pelo formulario.
 
 Se der erro no envio, abra o console do navegador para verificar se alguma variavel de ambiente nao foi preenchida.
+
+## 🤖 Configurando Ask AI (Groq + RAG)
+
+O chat IA do Hero depende de uma API local em Node + Express (`server/index.js`) e de uma base RAG em `server/data/knowledge-base.json`.
+
+1. Crie um arquivo `.env.local` (ou `.env`) na raiz com base em `.env.example`.
+2. Preencha ao menos os campos abaixo:
+
+   ```env
+   GROQ_API_KEY=sua_chave_groq
+   GROQ_MODEL=llama-3.3-70b-versatile
+   PORT=8787
+   RAG_TOP_K=4
+   ```
+
+3. Rode o projeto com:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Teste a saude da API em `http://localhost:8787/api/health`.
+5. No site, use a barra **ASK AI** na Hero para conversar sobre stack, experiencia e contatos.
+
+### Personalizando o RAG
+
+- Edite `server/data/knowledge-base.json` para ajustar tom, historias, experiencias e links.
+- O ranking de contexto usa busca lexical em `server/rag/retriever.js`.
+- Se quiser respostas mais longas ou mais curtas, ajuste `temperature` e `max_tokens` em `server/index.js`.
 
 ## 📜 Propriedade & Licenciamento Interno
 

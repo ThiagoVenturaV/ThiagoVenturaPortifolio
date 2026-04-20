@@ -1,5 +1,6 @@
 import { useEffect, useRef, useMemo } from 'react';
 import gsap from 'gsap';
+import AskAiBar from './AskAiBar';
 
 function Particles() {
   const particles = useMemo(() => {
@@ -162,6 +163,10 @@ export default function Hero() {
             Contato
           </a>
         </div>
+      </div>
+
+      <div className="hero-ai-zone">
+        <AskAiBar />
       </div>
 
       {/* Scroll indicator */}

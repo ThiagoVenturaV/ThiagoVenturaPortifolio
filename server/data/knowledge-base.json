@@ -1,0 +1,60 @@
+{
+  "chunks": [
+    {
+      "id": "identity",
+      "title": "Identidade profissional",
+      "tags": ["thiago", "quem e", "sobre", "apresentacao"],
+      "content": "Meu nome e Thiago Ventura. Sou desenvolvedor fullstack focado em React, TypeScript, Node.js, Python e experiencias web imersivas com Three.js e GSAP. Gosto de unir design cinematografico com codigo limpo e foco em resultado real para produto e negocio."
+    },
+    {
+      "id": "style",
+      "title": "Forma de trabalho",
+      "tags": ["metodo", "forma de trabalho", "processo", "entrega"],
+      "content": "Eu trabalho com foco em clareza de escopo, iteracoes curtas, boa comunicacao e codigo sustentavel. Busco performance, UX consistente e arquitetura simples de evoluir."
+    },
+    {
+      "id": "frontend",
+      "title": "Stack frontend",
+      "tags": ["frontend", "react", "typescript", "three", "gsap"],
+      "content": "No frontend eu uso React, TypeScript, Next.js, animacoes com GSAP e experiencias 3D com Three.js e @react-three/fiber quando o projeto pede impacto visual."
+    },
+    {
+      "id": "backend",
+      "title": "Stack backend",
+      "tags": ["backend", "node", "python", "api", "banco"],
+      "content": "No backend eu trabalho com Node.js, Python e APIs REST. Tenho experiencia com PostgreSQL e integracoes de servicos externos para automacao e comunicacao entre sistemas."
+    },
+    {
+      "id": "projects",
+      "title": "Projetos em destaque",
+      "tags": ["projetos", "portfolio", "cases", "experiencia"],
+      "content": "No portfolio eu apresento projetos como plataformas com IA, dashboards de analytics, e-commerce e aplicacoes com visual interativo. O objetivo e mostrar capacidade tecnica e pensamento de produto."
+    },
+    {
+      "id": "services",
+      "title": "Como posso ajudar",
+      "tags": ["servicos", "freelance", "contratacao", "consultoria"],
+      "content": "Posso ajudar em desenvolvimento fullstack, criacao de landing pages e portfolios de alta conversao, implementacao de dashboards, integracoes de API e melhorias de performance em sistemas web existentes."
+    },
+    {
+      "id": "contacts",
+      "title": "Canais de contato e redes",
+      "tags": [
+        "contato",
+        "redes",
+        "social",
+        "linkedin",
+        "instagram",
+        "github",
+        "youtube"
+      ],
+      "content": "Voce pode falar comigo pelos canais: LinkedIn https://linkedin.com/in/thiago-ventura-velez/ | Instagram https://instagram.com/th.dev1/ | GitHub https://github.com/thiagoventurav | YouTube https://www.youtube.com/@ThVenturaDev . Tambem existe formulario na secao Contato do site para mensagens diretas."
+    },
+    {
+      "id": "conversation",
+      "title": "Tom de conversa",
+      "tags": ["tom", "conversa", "estilo", "personalidade"],
+      "content": "Quando eu converso com visitantes, respondo de forma objetiva, amigavel e profissional. Evito enrolacao, dou exemplos praticos e deixo claro o proximo passo quando for assunto de projeto ou contratacao."
+    }
+  ]
+}
