@@ -34,14 +34,8 @@ const quickPrompts = [
   'Como voce trabalha em um novo projeto?',
 ];
 
-const initialMessage: ChatMessage = {
-  role: 'assistant',
-  content:
-    'Oi! Eu sou o assistente do Thiago. Pode me perguntar sobre stack, projetos e tambem pedir as redes de contato.',
-};
-
 export default function AskAiBar() {
-  const [messages, setMessages] = useState<ChatMessage[]>([initialMessage]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [errorText, setErrorText] = useState('');
