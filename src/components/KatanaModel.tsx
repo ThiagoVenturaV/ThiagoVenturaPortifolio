@@ -78,17 +78,26 @@ export default function KatanaModel() {
     };
     onScroll();
 
+    // One frame later, layout is usually more stable than at first effect run.
+    const rafId = requestAnimationFrame(onScroll);
+
     // Fallback recalculations because DOM layout might take a few ms to stabilize:
-    const t1 = setTimeout(onScroll, 300);
-    const t2 = setTimeout(onScroll, 2500);
+    const t1 = setTimeout(onScroll, 120);
+    const t2 = setTimeout(onScroll, 800);
+    const t3 = setTimeout(onScroll, 2500);
+
+    window.addEventListener('load', onScroll);
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('load', onScroll);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       clearTimeout(t1);
       clearTimeout(t2);
+      clearTimeout(t3);
     };
   }, []);
 

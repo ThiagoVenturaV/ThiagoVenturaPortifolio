@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -15,6 +15,23 @@ function App() {
   const [loading, setLoading] = useState(true);
   useLenis();
 
+  useEffect(() => {
+    if (loading) return;
+
+    // Force a viewport recalculation right after the loading overlay ends.
+    const rafId = requestAnimationFrame(() => {
+      window.dispatchEvent(new Event('resize'));
+    });
+    const timeoutId = window.setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 200);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timeoutId);
+    };
+  }, [loading]);
+
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
@@ -25,6 +42,7 @@ function App() {
       {/* Three.js Canvas - fixed, rendered ABOVE the hero background but below hero text */}
       <Canvas
         className="three-canvas"
+        frameloop="always"
         shadows
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
