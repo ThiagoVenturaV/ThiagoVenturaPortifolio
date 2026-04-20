@@ -36,18 +36,23 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(6, 9, 11, 0);
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(0) saturate(100%);
+  -webkit-backdrop-filter: blur(0) saturate(100%);
   opacity: 0;
   pointer-events: none;
   z-index: 22;
   transition:
     opacity 0.35s ease,
-    background-color 0.35s ease;
+    background-color 0.35s ease,
+    backdrop-filter 0.35s ease;
 }
 
 body.chat-focus-active::before {
   opacity: 1;
-  background: rgba(6, 9, 11, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px) saturate(115%);
+  -webkit-backdrop-filter: blur(8px) saturate(115%);
 }
 
 a,
