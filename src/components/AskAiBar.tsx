@@ -61,6 +61,18 @@ export default function AskAiBar() {
     element.scrollTop = element.scrollHeight;
   }, [messages, isSending]);
 
+  useEffect(() => {
+    if (isExpanded) {
+      document.body.classList.add('chat-focus-active');
+    } else {
+      document.body.classList.remove('chat-focus-active');
+    }
+
+    return () => {
+      document.body.classList.remove('chat-focus-active');
+    };
+  }, [isExpanded]);
+
   const handleShellWheel = (event: WheelEvent<HTMLDivElement>) => {
     const logElement = logRef.current;
 
