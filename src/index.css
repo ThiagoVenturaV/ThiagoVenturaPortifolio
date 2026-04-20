@@ -424,8 +424,11 @@ button {
 .ask-ai-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.65rem;
   margin-bottom: 0.55rem;
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 .ask-ai-header p {
@@ -497,6 +500,7 @@ button {
 .ask-ai-quick-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.45rem;
   margin-top: 0.6rem;
 }
@@ -523,6 +527,9 @@ button {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 0.5rem;
+  width: min(100%, 720px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ask-ai-mic-btn {
@@ -1414,11 +1421,11 @@ button {
     gap: 0.5rem;
     max-height: 145px;
 
-  .ask-ai-mic-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-  }
+    .ask-ai-mic-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+    }
   }
 
   .ask-ai-bubble {

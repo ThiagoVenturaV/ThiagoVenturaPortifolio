@@ -273,7 +273,9 @@ export default function AskAiBar() {
     const recognition = recognitionRef.current;
 
     if (!recognition) {
-      setErrorText('Seu navegador nao suporta microfone nativo via Speech Recognition.');
+      setErrorText(
+        'Seu navegador nao suporta microfone nativo via Speech Recognition.',
+      );
       return;
     }
 
@@ -290,7 +292,9 @@ export default function AskAiBar() {
       recognition.start();
       setIsListening(true);
     } catch {
-      setErrorText('Nao foi possivel iniciar o microfone agora. Tente novamente.');
+      setErrorText(
+        'Nao foi possivel iniciar o microfone agora. Tente novamente.',
+      );
     }
   };
 
@@ -355,7 +359,9 @@ export default function AskAiBar() {
           aria-label={isListening ? 'Parar microfone' : 'Ativar microfone'}
           aria-pressed={isListening}
           title={
-            isListening ? 'Parar ditado por voz' : 'Ditado por voz com o microfone'
+            isListening
+              ? 'Parar ditado por voz'
+              : 'Ditado por voz com o microfone'
           }
           disabled={isSending}
         >
