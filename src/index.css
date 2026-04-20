@@ -37,22 +37,17 @@ body::before {
   position: fixed;
   inset: 0;
   background: rgba(6, 9, 11, 0);
-  backdrop-filter: blur(0) saturate(100%);
-  -webkit-backdrop-filter: blur(0) saturate(100%);
   opacity: 0;
   pointer-events: none;
   z-index: 22;
   transition:
     opacity 0.35s ease,
-    background-color 0.35s ease,
-    backdrop-filter 0.35s ease;
+    background-color 0.35s ease;
 }
 
 body.chat-focus-active::before {
   opacity: 1;
   background: rgba(6, 9, 11, 0.3);
-  backdrop-filter: blur(10px) saturate(125%);
-  -webkit-backdrop-filter: blur(10px) saturate(125%);
 }
 
 a,
@@ -395,13 +390,7 @@ button {
   position: relative;
   z-index: 2;
   border: 1px solid rgba(201, 168, 76, 0.32);
-  background: linear-gradient(
-    150deg,
-    rgba(12, 12, 12, 0.78),
-    rgba(8, 8, 8, 0.72)
-  );
-  backdrop-filter: blur(16px) saturate(120%);
-  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  background: linear-gradient(150deg, #111111, #0a0a0a);
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   padding: 0.8rem;
@@ -414,18 +403,12 @@ button {
 }
 
 .ask-ai-shell-expanded {
-  background: linear-gradient(
-    150deg,
-    rgba(15, 17, 18, 0.9),
-    rgba(10, 10, 10, 0.86)
-  );
+  background: linear-gradient(150deg, #141414, #0b0b0b);
   border-color: rgba(201, 168, 76, 0.62);
   box-shadow:
     0 22px 52px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(201, 168, 76, 0.3),
     0 0 24px rgba(201, 168, 76, 0.12);
-  backdrop-filter: blur(24px) saturate(145%);
-  -webkit-backdrop-filter: blur(24px) saturate(145%);
   transform: translateY(-8px) scale(1.005);
 }
 
