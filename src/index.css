@@ -877,6 +877,54 @@ button {
   align-items: flex-end;
 }
 
+/* ===== CAROUSEL CONTROLS ===== */
+.carousel-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.carousel-btn {
+  background: rgba(240, 237, 229, 0.05);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.carousel-btn:hover:not(.disabled) {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.carousel-btn.left:hover:not(.disabled) svg {
+  transform: translateX(-2px);
+}
+
+.carousel-btn.right:hover:not(.disabled) svg {
+  transform: translateX(2px);
+}
+
+.carousel-btn.disabled,
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
 .projects-carousel {
   display: flex;
   gap: 2rem;
@@ -1283,6 +1331,13 @@ button {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  body.chat-focus-active::before {
+    opacity: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .nav-hamburger {
     display: flex;
   }
@@ -1409,16 +1464,28 @@ button {
 
   .ask-ai-log {
     margin-top: 0.65rem;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    display: flex;
+    flex-direction: column;
     gap: 0.5rem;
     max-height: 145px;
+  }
 
-    .ask-ai-mic-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-    }
+  .ask-ai-row {
+    width: 100%;
+  }
+
+  .ask-ai-row.user {
+    justify-content: flex-end;
+  }
+
+  .ask-ai-row.assistant {
+    justify-content: flex-start;
+  }
+
+  .ask-ai-mic-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
   }
 
   .ask-ai-bubble {
@@ -1450,44 +1517,17 @@ button {
     font-size: clamp(1.8rem, 8vw, 2.5rem);
   }
 
-  /* ===== CAROUSEL CONTROLS ===== */
+  /* Mobile spacing adjustments */
   .carousel-controls {
-    display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
   }
-
   .carousel-btn {
-    background: rgba(240, 237, 229, 0.05);
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    width: 40px;
+    height: 40px;
   }
-
   .carousel-btn svg {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
-  }
-
-  .carousel-btn:hover {
-    background: rgba(201, 168, 76, 0.1);
-    border-color: var(--gold);
-    transform: translateY(-2px);
-  }
-
-  .carousel-btn.left:hover svg {
-    transform: translateX(-2px);
-  }
-
-  .carousel-btn.right:hover svg {
-    transform: translateX(2px);
+    width: 16px;
+    height: 16px;
   }
 
   body {

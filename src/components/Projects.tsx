@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { projects } from '../data/projects';
@@ -8,11 +8,21 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollButtons = () => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    setCanScrollLeft(carousel.scrollLeft > 4);
+    setCanScrollRight(
+      carousel.scrollLeft < carousel.scrollWidth - carousel.clientWidth - 4
+    );
+  };
 
   useEffect(() => {
     if (!carouselRef.current) return;
 
-    // GSAP Draggable-like horizontal scroll with mouse
     const carousel = carouselRef.current;
     let isDown = false;
     let startX: number;
@@ -45,13 +55,17 @@ export default function Projects() {
 
     let autoScrollId: number;
     let isHovered = false;
+    let scrollDirection = 1; // 1 for right, -1 for left
 
     const autoScroll = () => {
       if (!isDown && !isHovered) {
-        carousel.scrollLeft += 1;
-        // Reset to start if reached end
+        carousel.scrollLeft += scrollDirection * 1;
+        
+        // Reverse direction if hitting the edges
         if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 1) {
-           carousel.scrollLeft = 0;
+          scrollDirection = -1;
+        } else if (carousel.scrollLeft <= 0) {
+          scrollDirection = 1;
         }
       }
       autoScrollId = requestAnimationFrame(autoScroll);
@@ -59,7 +73,7 @@ export default function Projects() {
 
     autoScrollId = requestAnimationFrame(autoScroll);
 
-    const mouseEnter = () => isHovered = true;
+    const mouseEnterCarousel = () => isHovered = true;
     const mouseLeaveCarousel = () => {
       isHovered = false;
       mouseLeave();
@@ -67,9 +81,13 @@ export default function Projects() {
 
     carousel.addEventListener('mousedown', mouseDown);
     carousel.addEventListener('mouseleave', mouseLeaveCarousel);
-    carousel.addEventListener('mouseenter', mouseEnter);
+    carousel.addEventListener('mouseenter', mouseEnterCarousel);
     carousel.addEventListener('mouseup', mouseUp);
     carousel.addEventListener('mousemove', mouseMove);
+    carousel.addEventListener('scroll', updateScrollButtons);
+
+    // Initial check
+    updateScrollButtons();
 
     // Animate cards on scroll
     const cards = carousel.querySelectorAll('.project-card');
@@ -95,14 +113,23 @@ export default function Projects() {
       cancelAnimationFrame(autoScrollId);
       carousel.removeEventListener('mousedown', mouseDown);
       carousel.removeEventListener('mouseleave', mouseLeaveCarousel);
-      carousel.removeEventListener('mouseenter', mouseEnter);
+      carousel.removeEventListener('mouseenter', mouseEnterCarousel);
       carousel.removeEventListener('mouseup', mouseUp);
       carousel.removeEventListener('mousemove', mouseMove);
+      carousel.removeEventListener('scroll', updateScrollButtons);
       ScrollTrigger.getAll().forEach((st) => {
         if (st.trigger === sectionRef.current) st.kill();
       });
     };
   }, []);
+
+  const scrollLeft = () => {
+    carouselRef.current?.scrollBy({ left: -400, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    carouselRef.current?.scrollBy({ left: 400, behavior: 'smooth' });
+  };
 
   return (
     <section id="projects" className="projects-section" ref={sectionRef}>
@@ -118,28 +145,22 @@ export default function Projects() {
               letterSpacing: '0.05em',
             }}
           >
-            Arraste ou use os botões para explorar →
+            Arraste ou use os botões para explorar
           </p>
         </div>
         <div className="carousel-controls">
-          <button 
-            className="carousel-btn left" 
-            onClick={() => {
-              if (carouselRef.current) {
-                carouselRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-              }
-            }}
+          <button
+            className={`carousel-btn left${!canScrollLeft ? ' disabled' : ''}`}
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
             aria-label="Projetos anteriores"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
           </button>
-          <button 
-            className="carousel-btn right" 
-            onClick={() => {
-              if (carouselRef.current) {
-                carouselRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-              }
-            }}
+          <button
+            className={`carousel-btn right${!canScrollRight ? ' disabled' : ''}`}
+            onClick={scrollRight}
+            disabled={!canScrollRight}
             aria-label="Próximos projetos"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
