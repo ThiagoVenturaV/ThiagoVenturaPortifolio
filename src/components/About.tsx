@@ -37,6 +37,7 @@ const technologies = [
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!contentRef.current) return;
@@ -62,6 +63,25 @@ export default function About() {
         },
       }
     );
+
+    // Image parallax effect
+    if (imageWrapperRef.current) {
+      gsap.fromTo(
+        imageWrapperRef.current,
+        { y: 80, opacity: 0 },
+        {
+          y: -40,
+          opacity: 1,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            end: 'bottom top',
+            scrub: 1.5,
+          },
+        }
+      );
+    }
 
     // Parallax effect on the section background
     gsap.to(sectionRef.current, {
@@ -105,9 +125,8 @@ export default function About() {
         <p className="section-subtitle">Sobre Mim</p>
         <h2 className="section-title">Quem sou eu</h2>
         <p className="about-text">
-          Sou um desenvolvedor web apaixonado por criar experiências digitais
-          imersivas e de alta performance. Com foco em tecnologias modernas como
-          React, TypeScript e Node.js, transformo ideias em interfaces que
+          Sou um desenvolvedor apaixonado por criar experiências digitais
+          imersivas e de alta performance. Com foco em tecnologias modernas como AI&nbsp;Agents, React, TypeScript e Node.js, assim como uma base solida em Backend Java e Springboot, transformo ideias em interfaces que
           impressionam e funcionam perfeitamente.
         </p>
         <p className="about-text" style={{ marginTop: '1rem' }}>
@@ -124,6 +143,17 @@ export default function About() {
               {tech.name}
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="about-image-wrapper" ref={imageWrapperRef}>
+        <div className="about-image-frame">
+          <img
+            src="/euDeZoro.png"
+            alt="Thiago Ventura"
+            className="about-image"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>

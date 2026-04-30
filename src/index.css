@@ -721,6 +721,7 @@ button {
   padding: 8rem 4rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background: linear-gradient(
     180deg,
     var(--bg-dark) 0%,
@@ -747,6 +748,62 @@ button {
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 3rem;
+}
+
+.about-image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: 12%; /* Leaves space for the katana on the right */
+}
+
+.about-image-frame {
+  position: relative;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 12px;
+  padding: 1.2rem;
+  background: rgba(240, 237, 229, 0.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-image-frame::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  border-radius: 18px;
+  z-index: -1;
+  transition: all 0.4s ease;
+}
+
+.about-image-frame:hover {
+  transform: translateY(-8px);
+}
+
+.about-image-frame:hover::before {
+  border-color: rgba(201, 168, 76, 0.3);
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  transition: all 0.5s ease;
+  object-fit: cover;
 }
 
 .tech-item {
@@ -1402,7 +1459,14 @@ button {
   }
 
   .about-section {
-    padding: 6rem 2rem;
+    padding: 6rem 1.5rem;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .about-image-wrapper {
+    margin: 0 auto;
+    max-width: 100%;
   }
 
   .skills-section {
