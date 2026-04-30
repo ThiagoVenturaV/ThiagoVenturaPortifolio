@@ -34,6 +34,8 @@ const technologies = [
   { name: 'Figma', icon: <SiFigma size={18} color="var(--gold)" /> },
 ];
 
+import euDeZoro from '../assets/euDeZoro.png';
+
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -149,10 +151,9 @@ export default function About() {
       <div className="about-image-wrapper" ref={imageWrapperRef}>
         <div className="about-image-frame">
           <img
-            src="/euDeZoro.png"
+            src={euDeZoro}
             alt="Thiago Ventura"
             className="about-image"
-            loading="lazy"
           />
         </div>
       </div>
