@@ -84,7 +84,7 @@ function App() {
             </a>
             <p>
               Desenvolvido por Thiago Ventura <br />© {new Date().getFullYear()}{' '}
-              — Todos os direitos reservados.
+               Todos os direitos reservados.
             </p>
             <p className="footer-back-to-top">
               <a href="#hero">Voltar ao topo ↑</a>
