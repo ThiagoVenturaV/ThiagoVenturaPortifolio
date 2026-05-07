@@ -61,12 +61,12 @@ export default function Projects() {
       if (!isDown && !isHovered) {
         carousel.scrollLeft += scrollDirection * 1;
         
-        // Reverse direction if hitting the edges
+        /* Reverse direction if hitting the edges
         if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 1) {
           scrollDirection = -1;
         } else if (carousel.scrollLeft <= 0) {
           scrollDirection = 1;
-        }
+        }*/
       }
       autoScrollId = requestAnimationFrame(autoScroll);
     };
