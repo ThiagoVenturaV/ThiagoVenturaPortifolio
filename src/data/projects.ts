@@ -31,7 +31,7 @@ export const projects: Project[] = [
     id: 3,
     title: "TaskAI",
     description: "Plataforma completa de gerenciamento de tarefas com IA integrada.",
-    image: "https://i.imgur.com/Kk6xpVm.jpg",
+    image: "https://i.imgur.com/iPjYFFs.jpg",
     stack: ["React", "TypeScript", "REST API", "PostgreSQL", "IA"],
     github: "https://github.com/ThiagoVenturaV/taskaiBACKEND",
     deploy: "https://taskai-hazel.vercel.app/",
