@@ -143,7 +143,7 @@ export default function Contact() {
           }}
         >
           Tem um projeto em mente ou quer conversar sobre tecnologia? <br />
-          Me envie uma mensagem, responderei o mais breve possível.
+          Me envie uma mensagem, responderei o mais breve possível!
         </p>
 
         <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
