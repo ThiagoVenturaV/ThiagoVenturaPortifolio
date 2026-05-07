@@ -45,7 +45,7 @@ function App() {
         frameloop="always"
         shadows
         camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{
           position: 'fixed',
           top: 0,

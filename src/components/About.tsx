@@ -57,6 +57,7 @@ export default function About() {
         duration: 0.8,
         stagger: 0.1,
         ease: 'power3.out',
+        force3D: true,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 70%',
@@ -74,12 +75,13 @@ export default function About() {
         {
           y: -40,
           opacity: 1,
-          ease: 'power1.out',
+          ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
             end: 'bottom top',
-            scrub: 1.5,
+            scrub: 1,
           },
         }
       );
@@ -89,6 +91,7 @@ export default function About() {
     gsap.to(sectionRef.current, {
       backgroundPosition: '50% 30%',
       ease: 'none',
+      force3D: true,
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top bottom',

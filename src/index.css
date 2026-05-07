@@ -261,6 +261,7 @@ button {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  will-change: transform;
 }
 
 .hero-bg {
@@ -729,6 +730,7 @@ button {
     var(--bg-dark) 100%
   );
   overflow: hidden;
+  will-change: transform;
 }
 
 .about-content {
