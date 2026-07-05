@@ -11,6 +11,7 @@ Este projeto combina a solidez do **React** com interações impressionantes em 
 - **Animações Cinematográficas:** Transições de letreiros letra a letra controladas por ref (`innerHTML.split()`), revelações robustas por rolagem (`ScrollTrigger`) e um moderno e belo Preloader Dourado blindando o site em seus primeiros milissegundos críticos.
 - **Efeitos e Micro-interações:** Interações de hover refinadas que geram trilhos dourados estilo lâmina ("Slashes") em C-Level CTA buttons, e um fluido e denso carrossel manual avançado reescrevendo a listagem de projetos passados baseada em arrasto, scroll e toques.
 - **Ask AI com Groq + RAG:** Barra de conversa no Hero com inferência via modelo **llama-3.3-70b-versatile**, usando base de conhecimento local para responder como Thiago e entregar redes de contato durante o papo.
+- **Acessibilidade em LIBRAS:** Suporte nativo à Língua Brasileira de Sinais integrada de forma assíncrona com o carregamento oficial do VLibras, garantindo acessibilidade a todos os visitantes do portfólio.
 
 ## 💻 Tech Stack
 
@@ -20,6 +21,7 @@ Este projeto combina a solidez do **React** com interações impressionantes em 
 - **[GSAP](https://gsap.com/)**: Biblioteca premium de animações complexas em JavaScript de alta fluidez cuidando das animações contidas e tracking de frames do usuário pela página.
 - **[Lenis](https://lenis.studiofreight.com/)**: Ferramenta de scroll contínuo e responsivo, normalizando as rolagens desajeitadas para frames suavizados e sedosos de computadores Desktop.
 - **[react-icons](https://react-icons.github.io/react-icons/)**: Importação de biblioteca vetorial polimorfa e inteligente (`import { SiReact, SiDocker } from 'react-icons/si'`). Evitando sobrecarga dom via SVG bruto e elevando a performance extrema de leitura.
+- **[LibrasWidget](https://github.com/ThiagoVenturaV/LibrasWidget)**: Widget de acessibilidade personalizado para injeção limpa e gerenciamento do ciclo de vida (carregamento/destruição) do VLibras em SPA React.
 
 ## 🗂 Arquitetura de Views Padrão
 
