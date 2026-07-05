@@ -1629,3 +1629,8 @@ button {
     padding: 2rem 1.5rem;
   }
 }
+
+/* ===== VLIBRAS Z-INDEX FIX ===== */
+[vw] {
+  z-index: 999999 !important;
+}
