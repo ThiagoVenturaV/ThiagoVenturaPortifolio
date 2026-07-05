@@ -10,10 +10,24 @@ import KatanaModel from './components/KatanaModel';
 import CustomCursor from './components/CustomCursor';
 import LoadingScreen from './components/LoadingScreen';
 import { useLenis } from './hooks/useLenis';
+import LibrasWidget from './libras-widget';
 
 function App() {
   const [loading, setLoading] = useState(true);
   useLenis();
+
+  useEffect(() => {
+    // Inicializa o widget de LIBRAS com a cor dourada do tema
+    const widget = new LibrasWidget({
+      color: '#c9a84c',
+      watchSelector: '.ask-ai-row.assistant .ask-ai-bubble',
+      autoTranslate: true,
+    });
+
+    return () => {
+      widget.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     if (loading) return;

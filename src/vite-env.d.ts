@@ -19,3 +19,8 @@ declare module '*.gltf' {
   const src: string;
   export default src;
 }
+
+declare module './libras-widget' {
+  const LibrasWidget: any;
+  export default LibrasWidget;
+}
