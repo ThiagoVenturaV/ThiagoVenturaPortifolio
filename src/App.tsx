@@ -17,12 +17,8 @@ function App() {
   useLenis();
 
   useEffect(() => {
-    // Inicializa o widget de LIBRAS com a cor dourada do tema
-    const widget = new LibrasWidget({
-      color: '#c9a84c',
-      watchSelector: '.ask-ai-row.assistant .ask-ai-bubble',
-      autoTranslate: true,
-    });
+    // Inicializa o widget do VLibras
+    const widget = new LibrasWidget();
 
     return () => {
       widget.destroy();
