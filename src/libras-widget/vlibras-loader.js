@@ -56,17 +56,7 @@ export function loadVLibras() {
   return _loadPromise;
 }
 
-/**
- * Esconde o botão nativo do VLibras.
- * O LibrasWidget usa seu próprio botão customizável.
- */
-export function hideVLibrasNativeButton() {
-  if (document.getElementById('_lw-hide-native')) return;
-  const style = document.createElement('style');
-  style.id = '_lw-hide-native';
-  style.textContent = `[data-lw-managed] [vw-access-button] { display: none !important; }`;
-  document.head.appendChild(style);
-}
+
 
 /**
  * Abre ou fecha o painel do VLibras clicando no seu botão interno.
