@@ -67,14 +67,15 @@ export default function About() {
       }
     );
 
-    // Image parallax effect
+    // Keep the image fully visible while applying only the parallax movement.
+    // Animating opacity with a scrubbed timeline left the photo looking dark,
+    // especially on mobile where this section is taller than the viewport.
     if (imageWrapperRef.current) {
       gsap.fromTo(
         imageWrapperRef.current,
-        { y: 80, opacity: 0 },
+        { y: 80 },
         {
           y: -40,
-          opacity: 1,
           ease: 'none',
           force3D: true,
           scrollTrigger: {
