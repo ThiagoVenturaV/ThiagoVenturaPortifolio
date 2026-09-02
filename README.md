@@ -10,7 +10,7 @@ Este projeto combina a solidez do **React** com interações impressionantes em 
 - **Responsive Mobile-First:** A experiência flui perfeitamente desde celulares minúsculos até monitores ultra-wide. O Menu Mobile adota uma modernização limpa de **Glassmorphism modal** para economia inteligente do espaço real (Screen Estate).
 - **Animações Cinematográficas:** Transições de letreiros letra a letra controladas por ref (`innerHTML.split()`), revelações robustas por rolagem (`ScrollTrigger`) e um moderno e belo Preloader Dourado blindando o site em seus primeiros milissegundos críticos.
 - **Efeitos e Micro-interações:** Interações de hover refinadas que geram trilhos dourados estilo lâmina ("Slashes") em C-Level CTA buttons, e um fluido e denso carrossel manual avançado reescrevendo a listagem de projetos passados baseada em arrasto, scroll e toques.
-- **Ask AI com Groq + RAG:** Barra de conversa no Hero com inferência via modelo **llama-3.3-70b-versatile**, usando base de conhecimento local para responder como Thiago e entregar redes de contato durante o papo.
+- **Ask AI com Groq + RAG:** Barra de conversa no Hero com inferência via modelo **openai/gpt-oss-120b**, usando base de conhecimento local para responder como Thiago e entregar redes de contato durante o papo.
 - **Acessibilidade em LIBRAS:** Suporte nativo à Língua Brasileira de Sinais integrada de forma assíncrona com o carregamento oficial do VLibras, garantindo acessibilidade a todos os visitantes do portfólio.
 
 ## 💻 Tech Stack
@@ -91,7 +91,7 @@ Em producao no Vercel, o projeto usa funcoes serverless nativas em `api/chat.js`
 
    ```env
    GROQ_API_KEY=sua_chave_groq
-   GROQ_MODEL=llama-3.3-70b-versatile
+   GROQ_MODEL=openai/gpt-oss-120b
    PORT=8787
    RAG_TOP_K=4
    ```
@@ -116,7 +116,7 @@ Em producao no Vercel, o projeto usa funcoes serverless nativas em `api/chat.js`
 No painel do Vercel, para a IA funcionar, configure estas variaveis:
 
 - `GROQ_API_KEY`
-- `GROQ_MODEL` (opcional, existe fallback para `llama-3.3-70b-versatile`)
+- `GROQ_MODEL` (opcional, existe fallback para `openai/gpt-oss-120b`)
 - `RAG_TOP_K` (opcional, existe fallback para `4`)
 
 ## 📜 Propriedade & Licenciamento Interno
