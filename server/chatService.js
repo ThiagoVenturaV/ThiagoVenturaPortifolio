@@ -1,7 +1,7 @@
 import Groq from 'groq-sdk';
 import { formatContext, retrieveContext } from './rag/retriever.js';
 
-const DEFAULT_MODEL = 'llama-3.3-70b-versatile';
+const DEFAULT_MODEL = 'openai/gpt-oss-120b';
 const DEFAULT_TOP_K = 4;
 const MAX_MESSAGE_LENGTH = 1200;
 const MAX_HISTORY_ITEMS = 8;
