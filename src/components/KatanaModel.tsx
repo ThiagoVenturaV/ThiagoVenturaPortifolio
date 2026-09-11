@@ -1,23 +1,43 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { Component, useRef, useEffect, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import { katanaPose, sectionProgress } from '../lib/katanaMotion';
+import { katanaForVisit, KATANA_VARIANTS } from '../lib/katanaVariants';
+import type { KatanaVariant } from '../lib/katanaVariants';
 
-const MODEL_URL = '/katana-sheathed.glb';
+const VARIANT = katanaForVisit();
 const SECTION_IDS = ['hero', 'about', 'skills', 'projects', 'contact'];
 
+class ModelBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
+}
+
 export default function KatanaModel() {
+  return (
+    <ModelBoundary fallback={null}>
+      <ModelBoundary fallback={<LoadedKatana variant={KATANA_VARIANTS[0]} />}>
+        <LoadedKatana variant={VARIANT} />
+      </ModelBoundary>
+    </ModelBoundary>
+  );
+}
+
+function LoadedKatana({ variant }: { variant: KatanaVariant }) {
   const rig = useRef<THREE.Group>(null);
   const sword = useRef<THREE.Group>(null);
   const saya = useRef<THREE.Group>(null);
   const motion = useRef({ target: 0, smooth: 0, reduced: false, initialized: false });
   const { viewport, size } = useThree();
-  const gltf = useGLTF(MODEL_URL);
+  const gltf = useGLTF(variant.url);
 
   const parts = useMemo(() => {
     const blade = gltf.scene.getObjectByName('Katana')?.clone(true);
     const sheath = gltf.scene.getObjectByName('Saya')?.clone(true);
+    if (!blade || !sheath) throw new Error(`Missing sword or saya in ${variant.url}`);
     const materials: THREE.MeshStandardMaterial[] = [];
     const sheathMaterials: THREE.MeshStandardMaterial[] = [];
     for (const part of [blade, sheath]) {
@@ -38,7 +58,7 @@ export default function KatanaModel() {
       });
     }
     return { blade, sheath, materials, sheathMaterials };
-  }, [gltf]);
+  }, [gltf, variant.url]);
 
   useEffect(() => () => parts.materials.forEach((material) => material.dispose()), [parts]);
 
@@ -91,7 +111,7 @@ export default function KatanaModel() {
     const state = motion.current;
     // Frame-rate independent smoothing, without a time-driven idle loop.
     state.smooth = THREE.MathUtils.damp(state.smooth, state.target, 9, Math.min(delta, 0.1));
-    const pose = katanaPose(state.reduced ? 0 : state.smooth, viewport.width, size.width < 768);
+    const pose = katanaPose(state.reduced ? 0 : state.smooth, viewport.width, size.width < 768, variant.arc);
     rig.current.position.set(pose.x, pose.y, 0);
     rig.current.rotation.set(pose.rx, pose.ry, pose.rz);
     rig.current.scale.setScalar(pose.scale);
@@ -115,7 +135,7 @@ export default function KatanaModel() {
       <directionalLight position={[5, 5, 5]} intensity={1.5} />
       <pointLight position={[-3, 2, 2]} intensity={0.8} color="#c9a84c" />
       <spotLight position={[0, 5, 0]} angle={0.3} penumbra={1} intensity={0.6} color="#c9a84c" />
-      <group ref={rig} position={[0.6, 0.8, 0]} rotation={[0.05, 0.2, Math.PI / 2]} scale={0.65}>
+      <group ref={rig} name={`katana-${variant.id}`} userData={{ variant: variant.id }} position={[0.6, 0.8, 0]} rotation={[0.05, 0.2, Math.PI / 2]} scale={0.65}>
         <group ref={sword}><primitive object={parts.blade} /></group>
         <group ref={saya}><primitive object={parts.sheath} /></group>
       </group>
@@ -123,4 +143,4 @@ export default function KatanaModel() {
   );
 }
 
-useGLTF.preload(MODEL_URL);
+useGLTF.preload(VARIANT.url);

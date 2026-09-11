@@ -1,0 +1,38 @@
+[
+  {
+    "id": "wado",
+    "source_sha256": "6a5743e97920dab1cfcd1499c9387e89bc7392092d31cac73aa5fac101227da1",
+    "bytes": 3925308,
+    "triangles": 118401,
+    "scale": 4.4464609800362975,
+    "withdrawal": {
+      "radius": 18.897459165154263,
+      "centerY": -0.1,
+      "angle": 0.1952941176470588
+    }
+  },
+  {
+    "id": "sandai",
+    "source_sha256": "db60e7d93f3cd242dbb3dea4933ceb8999b29782025c70d88864867334d445de",
+    "bytes": 4572620,
+    "triangles": 141395,
+    "scale": 4.4464609800362975,
+    "withdrawal": {
+      "radius": 17.118874773139744,
+      "centerY": -0.1,
+      "angle": 0.21558441558441557
+    }
+  },
+  {
+    "id": "enma",
+    "source_sha256": "97356704d33e479de4c337e0338cdff7ba52c27cc9beec6f0b96fb188f6be96c",
+    "bytes": 4152556,
+    "triangles": 149266,
+    "scale": 4.4464609800362975,
+    "withdrawal": {
+      "radius": 16.00725952813067,
+      "centerY": -0.1,
+      "angle": 0.23055555555555554
+    }
+  }
+]

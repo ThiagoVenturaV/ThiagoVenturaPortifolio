@@ -1,3 +1,5 @@
+import type { WithdrawalArc } from './katanaVariants.ts';
+
 export const clamp = (value: number, min = 0, max = 1) => Math.max(min, Math.min(max, value));
 const mix = (from: number, to: number, t: number) => from + (to - from) * t;
 const ease = (t: number) => { const x = clamp(t); return x * x * (3 - 2 * x); };
@@ -11,10 +13,11 @@ export interface KatanaPose {
 
 // Rotate around the curvature centre instead of dragging a curved blade
 // straight through the side of the saya. Coordinates precede the hero rig.
-export function withdrawal(amount: number) {
-  const angle = clamp(amount) * 0.18;
-  return { x: 20 * (1 - Math.cos(angle)) + Math.sin(angle),
-    y: 1 - Math.cos(angle) - 20 * Math.sin(angle), angle };
+const ORIGINAL_ARC: WithdrawalArc = { radius: 20, centerY: 1, angle: 0.18 };
+export function withdrawal(amount: number, arc: WithdrawalArc = ORIGINAL_ARC) {
+  const angle = clamp(amount) * arc.angle;
+  return { x: arc.radius * (1 - Math.cos(angle)) + arc.centerY * Math.sin(angle),
+    y: arc.centerY * (1 - Math.cos(angle)) - arc.radius * Math.sin(angle), angle };
 }
 
 // Clamp section anchors so the final closed pose remains reachable on short pages.
@@ -29,7 +32,7 @@ export function sectionProgress(scrollY: number, sectionTops: number[], maxScrol
   return 0;
 }
 
-export function katanaPose(progress: number, viewportWidth: number, mobile: boolean): KatanaPose {
+export function katanaPose(progress: number, viewportWidth: number, mobile: boolean, arc: WithdrawalArc = ORIGINAL_ARC): KatanaPose {
   const p = clamp(Number.isFinite(progress) ? progress : 0, 0, 4);
   const heroScale = Math.min(mobile ? 0.45 : 0.65, viewportWidth * 0.84 / 4.9);
   const baseScale = Math.min(mobile ? 0.35 : 0.6, viewportWidth * 0.84 / 4.9);
@@ -41,14 +44,14 @@ export function katanaPose(progress: number, viewportWidth: number, mobile: bool
   const dockScale = mobile ? 0.3 : 0.6;
   const dockX = viewportWidth * (mobile ? 0.455 : 0.405);
   const dockY = 0.9 * dockScale + 0.05;
-  const out = withdrawal(1);
+  const out = withdrawal(1, arc);
   const pose: KatanaPose = {
     x: centre, y: 0.8, rx: 0.05, ry: 0.2, rz: Math.PI / 2, scale: heroScale,
     bladeX: 0, bladeY: 0, bladeZ: 0, sayaX: 0, sayaY: 0, sayaOpacity: 1,
   };
   if (p <= 0.72) {
     const t = phase(p, 0.08, 0.72);
-    const draw = withdrawal(t);
+    const draw = withdrawal(t, arc);
     pose.scale = mix(heroScale, drawScale, t);
     pose.x = mix(centre, -0.7 * drawScale, t);
     pose.bladeX = draw.x; pose.bladeY = draw.y; pose.bladeZ = draw.angle;
@@ -83,7 +86,7 @@ export function katanaPose(progress: number, viewportWidth: number, mobile: bool
     pose.sayaOpacity = phase(p, 3.12, 3.4);
   } else {
     // The saya has arrived and waits still. Seat the blade, then hold closed.
-    const draw = withdrawal(1 - phase(p, 3.52, 3.97));
+    const draw = withdrawal(1 - phase(p, 3.52, 3.97), arc);
     pose.x = dockX; pose.y = dockY; pose.scale = dockScale;
     pose.rx = 0; pose.ry = -0.12; pose.rz = Math.PI;
     pose.bladeX = draw.x; pose.bladeY = draw.y; pose.bladeZ = draw.angle;

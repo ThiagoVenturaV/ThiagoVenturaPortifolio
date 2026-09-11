@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node --test tests/katana-motion.test.ts tests/markdown.test.mjs",
+    "test": "node --test tests/katana-motion.test.ts tests/katana-variants.test.ts tests/markdown.test.mjs",
     "model:prepare": "node scripts/prepare-katana.mjs",
     "dev": "concurrently -n API,WEB -c yellow,cyan \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "vite",
