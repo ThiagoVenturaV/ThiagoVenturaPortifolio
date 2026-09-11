@@ -2,13 +2,13 @@ export interface WithdrawalArc { radius: number; centerY: number; angle: number 
 
 const modelScale = 4.9 / 1.102;
 export const KATANA_VARIANTS = [
-  { id: 'original', name: 'Katana original', url: '/katana-sheathed.glb',
+  { id: 'original', name: 'Katana original', url: '/katana-sheathed.glb', master: false,
     arc: { radius: 20, centerY: 1, angle: 0.18 } },
-  { id: 'wado', name: 'Wadō Ichimonji', url: '/katanas/wado.glb?v=2',
+  { id: 'wado', name: 'Wadō Ichimonji', url: '/katanas/wado.glb?v=master-1', master: true,
     arc: { radius: 4.25 * modelScale, centerY: -0.10, angle: 0.83 / 4.25 } },
-  { id: 'sandai', name: 'Sandai Kitetsu', url: '/katanas/sandai.glb?v=2',
+  { id: 'sandai', name: 'Sandai Kitetsu', url: '/katanas/sandai.glb?v=master-1', master: true,
     arc: { radius: 3.85 * modelScale, centerY: -0.10, angle: 0.83 / 3.85 } },
-  { id: 'enma', name: 'Enma', url: '/katanas/enma.glb?v=2',
+  { id: 'enma', name: 'Enma', url: '/katanas/enma.glb?v=master-1', master: true,
     arc: { radius: 3.60 * modelScale, centerY: -0.10, angle: 0.83 / 3.60 } },
 ] as const;
 

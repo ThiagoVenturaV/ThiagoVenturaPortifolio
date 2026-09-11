@@ -1,11 +1,13 @@
 import { Component, useRef, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, Environment } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { katanaPose, sectionProgress } from '../lib/katanaMotion';
 import { katanaForVisit, KATANA_VARIANTS } from '../lib/katanaVariants';
 import type { KatanaVariant } from '../lib/katanaVariants';
+import { katanaAssetParts } from '../lib/katanaAsset';
+import KatanaLighting from './KatanaLighting';
 
 const VARIANT = katanaForVisit();
 const SECTION_IDS = ['hero', 'about', 'skills', 'projects', 'contact'];
@@ -35,9 +37,7 @@ function LoadedKatana({ variant }: { variant: KatanaVariant }) {
   const gltf = useGLTF(variant.url);
 
   const parts = useMemo(() => {
-    const blade = gltf.scene.getObjectByName('Katana')?.clone(true);
-    const sheath = gltf.scene.getObjectByName('Saya')?.clone(true);
-    if (!blade || !sheath) throw new Error(`Missing sword or saya in ${variant.url}`);
+    const { blade, sheath } = katanaAssetParts(gltf.scene, variant.master);
     const materials: THREE.MeshStandardMaterial[] = [];
     const sheathMaterials: THREE.MeshStandardMaterial[] = [];
     for (const part of [blade, sheath]) {
@@ -46,7 +46,7 @@ function LoadedKatana({ variant }: { variant: KatanaVariant }) {
         const originals = Array.isArray(child.material) ? child.material : [child.material];
         const copies = originals.map((material: THREE.MeshStandardMaterial) => {
           const copy = material.clone();
-          copy.envMapIntensity = 3;
+          copy.envMapIntensity = variant.master ? 1 : 3;
           if (part === sheath) {
             copy.transparent = true;
             sheathMaterials.push(copy);
@@ -58,7 +58,7 @@ function LoadedKatana({ variant }: { variant: KatanaVariant }) {
       });
     }
     return { blade, sheath, materials, sheathMaterials };
-  }, [gltf, variant.url]);
+  }, [gltf, variant.master]);
 
   useEffect(() => () => parts.materials.forEach((material) => material.dispose()), [parts]);
 
@@ -130,11 +130,7 @@ function LoadedKatana({ variant }: { variant: KatanaVariant }) {
   if (!parts.blade || !parts.sheath) return null;
   return (
     <>
-      <Environment preset="night" />
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[5, 5, 5]} intensity={1.5} />
-      <pointLight position={[-3, 2, 2]} intensity={0.8} color="#c9a84c" />
-      <spotLight position={[0, 5, 0]} angle={0.3} penumbra={1} intensity={0.6} color="#c9a84c" />
+      <KatanaLighting master={variant.master} />
       <group ref={rig} name={`katana-${variant.id}`} userData={{ variant: variant.id }} position={[0.6, 0.8, 0]} rotation={[0.05, 0.2, Math.PI / 2]} scale={0.65}>
         <group ref={sword}><primitive object={parts.blade} /></group>
         <group ref={saya}><primitive object={parts.sheath} /></group>

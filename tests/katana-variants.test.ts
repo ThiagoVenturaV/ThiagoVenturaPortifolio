@@ -1,8 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { BoxGeometry, Group, Mesh, Vector3 } from 'three';
 import { KATANA_VARIANTS, chooseKatana } from '../src/lib/katanaVariants.ts';
 import { katanaPose, withdrawal } from '../src/lib/katanaMotion.ts';
+import { katanaAssetParts, masterToPortfolio, MASTER_MODEL_SCALE } from '../src/lib/katanaAsset.ts';
 
 test('all four can be drawn; reloads exclude the preceding model without fixing an order', () => {
   assert.deepEqual([.01, .26, .51, .99].map((n) => chooseKatana(null, () => n).id), ['original', 'wado', 'sandai', 'enma']);
@@ -43,19 +46,54 @@ test('every model shares choreography, section timing, reverse scroll and closed
   }
 });
 
-test('browser models are self-contained, lightweight, with the two canonical animation groups', () => {
+test('full authored models are shipped byte-for-byte, including textures and animation controls', () => {
+  const manifest = JSON.parse(readFileSync(new URL('../public/katanas/manifest.json', import.meta.url), 'utf8'));
   for (const variant of KATANA_VARIANTS) {
     const bytes = readFileSync(new URL(`../public${variant.url}`, import.meta.url));
     assert.equal(bytes.readUInt32LE(8),bytes.length);
     const data = JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)).toString());
-    assert.ok(bytes.length < 12_000_000, `${variant.id} exceeds transfer budget`);
-    for (const name of ['Katana','Saya']) assert.ok(data.nodes.some((n: {name:string}) => n.name===name));
     assert.ok(data.images.every((i: {bufferView?:number}) => typeof i.bufferView === 'number'));
-    if (variant.id !== 'original') assert.ok(!data.animations?.length, 'the page owns animation timing');
+    if (variant.master) {
+      const entry = manifest.find((item: { id: string }) => item.id === variant.id);
+      assert.equal(entry.source, 'authored-master');
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), entry.source_sha256);
+      assert.equal(bytes.length, entry.bytes);
+      for (const suffix of ['.Sword_CTRL', '.Saya_CTRL']) assert.ok(data.nodes.some((n: {name:string}) => n.name.endsWith(suffix)));
+      assert.ok(data.animations.some((a: {name:string}) => a.name === 'Draw_Resheath'));
+    } else {
+      for (const name of ['Katana','Saya']) assert.ok(data.nodes.some((n: {name:string}) => n.name===name));
+    }
   }
 });
 
-test('exported blades form one closed surface, with no missing faces after optimization', () => {
+test('master adapter aligns complete models to the existing rig without changing geometry or source controls', () => {
+  const source = new Group();
+  const sword = new Group(), saya = new Group();
+  sword.name = 'Wado_IchimonjiSword_CTRL'; saya.name = 'Wado_IchimonjiSaya_CTRL';
+  const geometry = new BoxGeometry(.1, .01, .02);
+  const mesh = new Mesh(geometry); sword.add(mesh); source.add(sword, saya);
+  const positions = geometry.getAttribute('position').array.slice();
+  const parts = katanaAssetParts(source, true);
+  const clonedMesh = parts.blade.children[0].children[0] as Mesh;
+  assert.equal(clonedMesh.geometry, geometry, 'the adapter must not rebuild or decimate geometry');
+  assert.deepEqual(geometry.getAttribute('position').array, positions);
+  assert.equal(sword.parent, source); assert.equal(saya.parent, source);
+  assert.deepEqual(sword.position.toArray(), [0, 0, 0]);
+  assert.notEqual(parts.blade, parts.sheath);
+  const tip = new Vector3(.772, .0033, -.0832).applyMatrix4(masterToPortfolio());
+  assert.ok(Math.abs(tip.x - .0832 * MASTER_MODEL_SCALE) < 1e-10);
+  assert.ok(Math.abs(tip.y - (.772 * MASTER_MODEL_SCALE - .1)) < 1e-10);
+  assert.ok(Math.abs(tip.z + .0033 * MASTER_MODEL_SCALE) < 1e-10);
+  assert.ok(masterToPortfolio().determinant() > 0, 'orientation must not mirror the mesh normals');
+  const original = new Group();
+  const originalBlade = new Group(), originalSaya = new Group();
+  originalBlade.name = 'Katana'; originalSaya.name = 'Saya';
+  originalBlade.position.set(1, 2, 3); original.add(originalBlade, originalSaya);
+  assert.deepEqual(katanaAssetParts(original, false).blade.position.toArray(), [1, 2, 3]);
+  geometry.dispose();
+});
+
+test('authored blades form one closed surface, with no missing faces or disconnected fragments', () => {
   for (const variant of KATANA_VARIANTS.filter((v) => v.id !== 'original')) {
     const bytes = readFileSync(new URL(`../public${variant.url}`, import.meta.url));
     const jsonLength = bytes.readUInt32LE(12);

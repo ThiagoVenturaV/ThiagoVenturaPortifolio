@@ -9,23 +9,27 @@ O portfólio sorteia uma katana por carregamento: a original, Wadō Ichimonji, S
 | Opção | Arquivo | Tamanho aproximado |
 | --- | --- | --- |
 | Original | `public/katana-sheathed.glb` | 6,97 MB |
-| Wadō Ichimonji | `public/katanas/wado.glb` | 4,23 MB |
-| Sandai Kitetsu | `public/katanas/sandai.glb` | 4,84 MB |
-| Enma | `public/katanas/enma.glb` | 4,34 MB |
+| Wadō Ichimonji | `public/katanas/wado.glb` | 32,91 MB |
+| Sandai Kitetsu | `public/katanas/sandai.glb` | 32,28 MB |
+| Enma | `public/katanas/enma.glb` | 23,54 MB |
 
-Os arquivos da katana original foram preservados. Os três novos são derivados para web dos modelos autorais completos entregues neste trabalho, com bainha, materiais PBR e o cabo de tecido revisado da Wadō. A geometria foi reduzida para aproximadamente 122–151 mil triângulos por conjunto; as texturas foram redimensionadas e incorporadas ao GLB. Os arquivos Blender completos e suas texturas de alta resolução permanecem na entrega `zoro-katanas`, fora deste repositório.
+Os três GLBs novos são cópias exatas dos modelos autorais completos: geometria, texturas na resolução original, materiais PBR, bainhas, controles e clipes de animação. Não há redução de polígonos nem recompressão de imagens. Wadō tem 622.920 triângulos; Sandai, 413.824; Enma, 240.802. O tecido revisado do cabo da Wadō está incluído. Os arquivos da katana original do portfólio também foram preservados.
 
-As lâminas preservam integralmente seus 4.108 triângulos. Na primeira exportação, o modificador de redução apagava faces porque o GLB importado separa vértices nas emendas de UV e nas arestas de normais distintas. O conversor agora exclui as lâminas dessa redução. Um teste nos GLBs finais verifica que cada lâmina é uma única superfície fechada, sem buracos nem fragmentos desconectados. As URLs usam `?v=2` para evitar reutilizar as versões defeituosas do cache do navegador.
+As lâminas preservam seus 4.108 triângulos. Um teste nos GLBs finais verifica que cada lâmina é uma única superfície fechada, sem buracos nem fragmentos desconectados. Outro compara o SHA-256 do arquivo publicado com o hash do modelo de origem registrado no manifesto. As URLs usam `?v=master-1` para evitar reutilizar versões reduzidas do cache do navegador.
 
-Apenas a opção sorteada é carregada e pré-carregada. O navegador não baixa as outras três. Se o modelo escolhido falhar, a cena tenta a original; se esta também falhar, o conteúdo do portfólio permanece utilizável.
+Apenas a opção sorteada é carregada e pré-carregada. O navegador não baixa as outras três. A fidelidade completa aumenta o download inicial e o uso de memória/GPU; o tempo depende da conexão e do aparelho. Se o modelo escolhido falhar, a cena tenta a original; se esta também falhar, o conteúdo do portfólio permanece utilizável.
 
-Os modelos novos usam dois grupos principais, `Katana` e `Saya`, na mesma escala e orientação da montagem original. A conversão é reproduzível com Blender 5.2:
+`katanaAssetParts` adapta os controles nativos `Sword_CTRL` e `Saya_CTRL` à escala e orientação da montagem do portfólio. A transformação acontece nos grupos em tempo de execução, sem reescrever malhas ou texturas. Para sincronizar os GLBs completos:
 
 ```powershell
-& 'C:\Program Files\Blender Foundation\Blender 5.2\blender.exe' -b --factory-startup --python-exit-code 1 --python scripts/prepare-zoro-katanas.py -- ../zoro-katanas/models
+node scripts/sync-zoro-katanas.mjs ../zoro-katanas/models
 ```
 
-`public/katanas/manifest.json` registra hashes dos modelos de origem, tamanhos, triângulos e parâmetros de encaixe. O script não altera os modelos de origem. As formas são reconstruções de fan art baseadas nas referências do anime e do [conjunto oficial PROPLICA](https://tamashiiweb.com/item/15253/?wovn=en).
+`public/katanas/manifest.json` registra hashes dos modelos de origem, tamanhos, triângulos e parâmetros de encaixe. O script copia os bytes sem converter os arquivos. Os arquivos Blender editáveis e suas texturas também permanecem na entrega `zoro-katanas`, fora deste repositório. As formas são reconstruções de fan art baseadas nas referências do anime e do [conjunto oficial PROPLICA](https://tamashiiweb.com/item/15253/?wovn=en).
+
+## Iluminação
+
+As três novas usam um ambiente de estúdio com painéis amplos de luz, preenchimento neutro e reflexos laterais. O mapa de iluminação é gerado localmente uma vez; não depende do download de um HDR externo. Ele ilumina os materiais sem mudar o fundo do site. Os valores originais de cor, metalicidade, rugosidade e texturas são preservados. A katana original mantém sua iluminação anterior.
 
 ## Movimento compartilhado
 
@@ -35,10 +39,10 @@ O único ajuste por modelo é o arco local de saque e retorno, calculado a parti
 
 ## Verificação
 
-- `npm test`: sorteio das quatro opções, exclusão da anterior, limites da coreografia, reversibilidade, encaixe, integridade dos modelos, superfície fechada das lâminas e regressões anteriores.
+- `npm test`: sorteio das quatro opções, exclusão da anterior, limites da coreografia, reversibilidade, encaixe, hashes dos modelos completos, transformação do rig, superfície fechada das lâminas e regressões anteriores.
 - `npm run build` e ESLint dos arquivos alterados.
 - Navegador em 1280×720 e 390×844: quatro opções, hero, saque, posição lateral, fechamento e retorno ao início.
-- Inspeção das três lâminas expostas, dos dois lados e em vista inclinada, além da animação no portfólio.
+- Inspeção das três lâminas expostas e dos materiais sob a iluminação usada na animação do portfólio.
 - Recarregamentos reais, estabilidade durante resize, movimento reduzido e fallback com falha simulada do GLB.
 
 O aviso anterior de bundle JavaScript acima de 500 kB permanece; os GLBs são arquivos separados e apenas um é carregado por visita.
