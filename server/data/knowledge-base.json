@@ -3,37 +3,69 @@
     {
       "id": "identity",
       "title": "Identidade profissional",
-      "tags": ["thiago", "quem e", "sobre", "apresentacao"],
+      "tags": [
+        "thiago",
+        "quem e",
+        "sobre",
+        "apresentacao"
+      ],
       "content": "Meu nome e Thiago Ventura. Sou desenvolvedor fullstack focado em React, TypeScript, Node.js, Python e experiencias web imersivas com Three.js e GSAP. Gosto de unir design cinematografico com codigo limpo e foco em resultado real para produto e negocio."
     },
     {
       "id": "style",
       "title": "Forma de trabalho",
-      "tags": ["metodo", "forma de trabalho", "processo", "entrega"],
+      "tags": [
+        "metodo",
+        "forma de trabalho",
+        "processo",
+        "entrega"
+      ],
       "content": "Eu trabalho com foco em clareza de escopo, iteracoes curtas, boa comunicacao e codigo sustentavel. Busco performance, UX consistente e arquitetura simples de evoluir."
     },
     {
       "id": "frontend",
       "title": "Stack frontend",
-      "tags": ["frontend", "react", "typescript", "three", "gsap"],
+      "tags": [
+        "frontend",
+        "react",
+        "typescript",
+        "three",
+        "gsap"
+      ],
       "content": "No frontend eu uso React, TypeScript, Next.js, animacoes com GSAP e experiencias 3D com Three.js e @react-three/fiber quando o projeto pede impacto visual."
     },
     {
       "id": "backend",
       "title": "Stack backend",
-      "tags": ["backend", "node", "python", "api", "banco"],
+      "tags": [
+        "backend",
+        "node",
+        "python",
+        "api",
+        "banco"
+      ],
       "content": "No backend eu trabalho com Node.js, Python e APIs REST. Tenho experiencia com PostgreSQL e integracoes de servicos externos para automacao e comunicacao entre sistemas."
     },
     {
       "id": "projects",
       "title": "Projetos em destaque",
-      "tags": ["projetos", "portfolio", "cases", "experiencia"],
-      "content": "No portfolio eu apresento projetos como plataformas com IA, dashboards de analytics, e-commerce e aplicacoes com visual interativo. O objetivo e mostrar capacidade tecnica e pensamento de produto."
+      "tags": [
+        "projetos",
+        "portfolio",
+        "cases",
+        "experiencia"
+      ],
+      "content": "O portfólio apresenta 20 projetos: Edson Assist, ServiceFlow, TaskAI, Portfólio com katana 3D, Titi, Hora Certa, Diversa AI, Recife Digital, Pilar 360, Recife por Elas, LibrasWidget, Agente Participa, EloTech, El Sabor, Monitoria GGE, TaskFlow, AVA FICR, Diagnóstico do Pilar, Extrator de Tabelas, BooPay. Os projetos estão na seção Projetos. BooPay está em planejamento, Titi está em beta e Recife por Elas é uma contribuição em projeto colaborativo."
     },
     {
       "id": "services",
       "title": "Como posso ajudar",
-      "tags": ["servicos", "freelance", "contratacao", "consultoria"],
+      "tags": [
+        "servicos",
+        "freelance",
+        "contratacao",
+        "consultoria"
+      ],
       "content": "Posso ajudar em desenvolvimento fullstack, criacao de landing pages e portfolios de alta conversao, implementacao de dashboards, integracoes de API e melhorias de performance em sistemas web existentes."
     },
     {
@@ -53,8 +85,301 @@
     {
       "id": "conversation",
       "title": "Tom de conversa",
-      "tags": ["tom", "conversa", "estilo", "personalidade"],
+      "tags": [
+        "tom",
+        "conversa",
+        "estilo",
+        "personalidade"
+      ],
       "content": "Quando eu converso com visitantes, respondo de forma objetiva, amigavel e profissional. Evito enrolacao, dou exemplos praticos e deixo claro o proximo passo quando for assunto de projeto ou contratacao."
+    },
+    {
+      "id": "project-1",
+      "title": "Edson Assist",
+      "tags": [
+        "Edson Assist",
+        "Análise esportiva",
+        "React",
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "IA",
+        "EdsonAssist"
+      ],
+      "content": "Edson Assist: Assistente de análise esportiva com painéis estatísticos, visualização de partidas e IA para explorar dados e probabilidades. Tecnologias: React, Python, FastAPI, PostgreSQL, IA. Código: https://github.com/ThiagoVenturaV/EdsonAssist. Backend: https://github.com/ThiagoVenturaV/EdsonAssistBack. Site de apresentação ou demonstração: https://ed-script-prototipo-main2.vercel.app/."
+    },
+    {
+      "id": "project-2",
+      "title": "ServiceFlow",
+      "tags": [
+        "ServiceFlow",
+        "Suporte e automação",
+        "React",
+        "REST API",
+        "ServiceNow",
+        "Groq",
+        "serviceflow"
+      ],
+      "content": "ServiceFlow: Atendimento conversacional com IA, abertura de chamados no ServiceNow e identidade visual configurável para cada operação. Tecnologias: React, REST API, ServiceNow, Groq. Código: https://github.com/ThiagoVenturaV/serviceflow. Site de apresentação ou demonstração: https://serviceflows.vercel.app/."
+    },
+    {
+      "id": "project-3",
+      "title": "TaskAI",
+      "tags": [
+        "TaskAI",
+        "Produtividade com IA",
+        "React",
+        "TypeScript",
+        "Express",
+        "PostgreSQL",
+        "IA",
+        "taskai"
+      ],
+      "content": "TaskAI: Gestão de tarefas em um quadro Kanban com agente de IA para organizar atividades por meio de linguagem natural. Tecnologias: React, TypeScript, Express, PostgreSQL, IA. Código: https://github.com/ThiagoVenturaV/taskai. Backend: https://github.com/ThiagoVenturaV/taskaiBACKEND. Site de apresentação ou demonstração: https://taskai-hazel.vercel.app/."
+    },
+    {
+      "id": "project-4",
+      "title": "Portfólio com katana 3D",
+      "tags": [
+        "Portfólio com katana 3D",
+        "Experiência web",
+        "React",
+        "Three.js",
+        "GSAP",
+        "TypeScript",
+        "IA",
+        "ThiagoVenturaPortifolio"
+      ],
+      "content": "Portfólio com katana 3D: Portfólio interativo com katana 3D, animação de desembainhar guiada pela rolagem e assistente conversacional com IA. Tecnologias: React, Three.js, GSAP, TypeScript, IA. Código: https://github.com/ThiagoVenturaV/ThiagoVenturaPortifolio. Site de apresentação ou demonstração: https://thiago-ventura-portifolio.vercel.app/."
+    },
+    {
+      "id": "project-5",
+      "title": "Titi",
+      "tags": [
+        "Titi",
+        "Assistente desktop",
+        "Electron",
+        "React",
+        "TypeScript",
+        "Ollama",
+        "Assistente-de-Voz---Titi"
+      ],
+      "content": "Titi: Assistente local para Windows com conversa por texto e voz, mascote animado e ferramentas para executar ações no computador. Em beta. Tecnologias: Electron, React, TypeScript, Ollama. Código: https://github.com/ThiagoVenturaV/Assistente-de-Voz---Titi. Cód. do site: https://github.com/ThiagoVenturaV/Titi-Site. Site de apresentação ou demonstração: https://titi-assistente.thiago2013ventura.chatgpt.site/."
+    },
+    {
+      "id": "project-6",
+      "title": "Hora Certa",
+      "tags": [
+        "Hora Certa",
+        "Aplicativo Android",
+        "Kotlin",
+        "Jetpack Compose",
+        "SQLite",
+        "Android",
+        "HoraCerta-Android"
+      ],
+      "content": "Hora Certa: Aplicativo Android para organizar medicamentos, programar alarmes exatos e acompanhar doses e estoque, com dados armazenados no aparelho. Tecnologias: Kotlin, Jetpack Compose, SQLite, Android. Código: https://github.com/ThiagoVenturaV/HoraCerta-Android. Cód. do site: https://github.com/ThiagoVenturaV/HoraCerta-Site. Site de apresentação ou demonstração: https://hora-certa.thiago2013ventura.chatgpt.site/."
+    },
+    {
+      "id": "project-7",
+      "title": "Diversa AI",
+      "tags": [
+        "Diversa AI",
+        "Educação inclusiva",
+        "React",
+        "FastAPI",
+        "MongoDB",
+        "FAISS",
+        "RAG",
+        "Diversa-AI"
+      ],
+      "content": "Diversa AI: Assistente de educação inclusiva com busca em fontes, respostas em streaming e orientações adaptadas para famílias, professores e gestores. Tecnologias: React, FastAPI, MongoDB, FAISS, RAG. Código: https://github.com/ThiagoVenturaV/Diversa-AI. Backend: https://github.com/ThiagoVenturaV/Diversa-AI-Backend. Site de apresentação ou demonstração: https://diversa-ai.vercel.app/."
+    },
+    {
+      "id": "project-8",
+      "title": "Recife Digital",
+      "tags": [
+        "Recife Digital",
+        "Educação e inclusão digital",
+        "React",
+        "TypeScript",
+        "PostgreSQL",
+        "PWA",
+        "RecifeDigital"
+      ],
+      "content": "Recife Digital: Plataforma de capacitação digital com cursos, avaliações, acompanhamento de progresso, certificados em PDF e recursos de acessibilidade. Tecnologias: React, TypeScript, PostgreSQL, PWA. Código: https://github.com/ThiagoVenturaV/RecifeDigital. Site de apresentação ou demonstração: https://recifedigital.vercel.app/."
+    },
+    {
+      "id": "project-9",
+      "title": "Pilar 360",
+      "tags": [
+        "Pilar 360",
+        "Tecnologia cívica",
+        "React",
+        "PostgreSQL",
+        "PWA",
+        "React Native",
+        "Expo",
+        "Participa360"
+      ],
+      "content": "Pilar 360: Participação cidadã com registro de demandas urbanas, projetos comunitários e recompensas. Inclui um protótipo mobile em React Native. Tecnologias: React, PostgreSQL, PWA, React Native, Expo. Código: https://github.com/ThiagoVenturaV/Participa360. Mobile: https://github.com/ThiagoVenturaV/Role-Access-Hub. Site de apresentação ou demonstração: https://pilar-360.vercel.app/."
+    },
+    {
+      "id": "project-10",
+      "title": "Recife por Elas",
+      "tags": [
+        "Recife por Elas",
+        "Projeto colaborativo",
+        "React",
+        "TypeScript",
+        "Express",
+        "PostgreSQL",
+        "Leaflet",
+        "recife-por-elas"
+      ],
+      "content": "Recife por Elas: Contribuição em plataforma que reúne oportunidades de trabalho, cursos e uma rede de apoio para mulheres e mães solo no Recife. Tecnologias: React, TypeScript, Express, PostgreSQL, Leaflet. Código: https://github.com/ThiagoVenturaV/recife-por-elas. Site de apresentação ou demonstração: https://recife-por-elas.vercel.app/."
+    },
+    {
+      "id": "project-11",
+      "title": "LibrasWidget",
+      "tags": [
+        "LibrasWidget",
+        "Acessibilidade web",
+        "JavaScript",
+        "VLibras",
+        "Web APIs",
+        "Vite",
+        "LibrasWidget"
+      ],
+      "content": "LibrasWidget: Biblioteca JavaScript que integra VLibras e um menu de acessibilidade com contraste, tamanho do texto, guia de leitura e leitura por voz. Tecnologias: JavaScript, VLibras, Web APIs, Vite. Código: https://github.com/ThiagoVenturaV/LibrasWidget. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-12",
+      "title": "Agente Participa",
+      "tags": [
+        "Agente Participa",
+        "Agentes e integrações",
+        "Python",
+        "FastAPI",
+        "LangGraph",
+        "WhatsApp API",
+        "Docker",
+        "Participa"
+      ],
+      "content": "Agente Participa: Agente para WhatsApp com memória por conversa, chamadas de ferramentas e orquestração de diálogos usando LangGraph e a API oficial da Meta. Tecnologias: Python, FastAPI, LangGraph, WhatsApp API, Docker. Código: https://github.com/ThiagoVenturaV/Participa. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-13",
+      "title": "EloTech",
+      "tags": [
+        "EloTech",
+        "Educação e empregabilidade",
+        "React",
+        "TypeScript",
+        "PostgreSQL",
+        "Vercel",
+        "elotech"
+      ],
+      "content": "EloTech: Plataforma de capacitação e empregabilidade para mulheres trans e travestis, com bootcamps, candidaturas, mentoria e comunidade. Tecnologias: React, TypeScript, PostgreSQL, Vercel. Código: https://github.com/ThiagoVenturaV/elotech. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-14",
+      "title": "El Sabor",
+      "tags": [
+        "El Sabor",
+        "Pedidos e pagamentos",
+        "React",
+        "TypeScript",
+        "Express",
+        "Mercado Pago",
+        "ElsaborComPix"
+      ],
+      "content": "El Sabor: Sistema de pedidos para restaurantes com cardápio, carrinho, checkout Pix e painéis para administração e entregadores. Tecnologias: React, TypeScript, Express, Mercado Pago. Código: https://github.com/ThiagoVenturaV/ElsaborComPix. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-15",
+      "title": "Monitoria GGE",
+      "tags": [
+        "Monitoria GGE",
+        "Monitoria acadêmica",
+        "Next.js",
+        "Express",
+        "Docker",
+        "Cloudflare Workers",
+        "MonitoriaGGE"
+      ],
+      "content": "Monitoria GGE: Plataforma de monitoria acadêmica com envio de dúvidas, respostas multimídia e painéis para alunos, monitores e coordenação. Tecnologias: Next.js, Express, Docker, Cloudflare Workers. Código: https://github.com/ThiagoVenturaV/MonitoriaGGE. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-16",
+      "title": "TaskFlow",
+      "tags": [
+        "TaskFlow",
+        "Gestão de tarefas",
+        "C#",
+        ".NET",
+        "Angular",
+        "PostgreSQL",
+        "Docker",
+        "TaskFlow-CRUD-.NET"
+      ],
+      "content": "TaskFlow: Gerenciador de tarefas Kanban com API em .NET, frontend Angular, Clean Architecture e controle de acesso por usuário e administrador. Tecnologias: C#, .NET, Angular, PostgreSQL, Docker. Código: https://github.com/ThiagoVenturaV/TaskFlow-CRUD-.NET. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-17",
+      "title": "AVA FICR",
+      "tags": [
+        "AVA FICR",
+        "API educacional",
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "Docker",
+        "AVA-FICR"
+      ],
+      "content": "AVA FICR: API de ambiente virtual de aprendizagem para disciplinas, atividades, notas e solicitações à secretaria, desenvolvida em projeto acadêmico. Tecnologias: Java, Spring Boot, PostgreSQL, Docker. Código: https://github.com/ThiagoVenturaV/AVA-FICR. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-18",
+      "title": "Diagnóstico do Pilar",
+      "tags": [
+        "Diagnóstico do Pilar",
+        "Dados e território",
+        "Python",
+        "Streamlit",
+        "Plotly",
+        "GeoPandas",
+        "testaAI"
+      ],
+      "content": "Diagnóstico do Pilar: Dashboard territorial da Comunidade do Pilar que cruza dados socioeconômicos e geoespaciais para apoiar estudos de inclusão urbana. Tecnologias: Python, Streamlit, Plotly, GeoPandas. Código: https://github.com/ThiagoVenturaV/testaAI. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-19",
+      "title": "Extrator de Tabelas",
+      "tags": [
+        "Extrator de Tabelas",
+        "Automação documental",
+        "Python",
+        "Ollama",
+        "PyMuPDF",
+        "pandas",
+        "OpenPyXL",
+        "Extrator-de-tabela"
+      ],
+      "content": "Extrator de Tabelas: Automação local que extrai tabelas de PDFs com reconhecimento visual via Ollama e consolida os dados em planilhas Excel padronizadas. Tecnologias: Python, Ollama, PyMuPDF, pandas, OpenPyXL. Código: https://github.com/ThiagoVenturaV/Extrator-de-tabela. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-20",
+      "title": "BooPay",
+      "tags": [
+        "BooPay",
+        "Concepção de produto",
+        "Agentic Commerce",
+        "Arquitetura",
+        "Documentação",
+        "Boopay"
+      ],
+      "content": "BooPay: Concepção de uma plataforma de comércio conversacional pelo Squad 45. Reúne escopo, arquitetura e roadmap; a aplicação está em planejamento. Tecnologias: Agentic Commerce, Arquitetura, Documentação. Código: https://github.com/ThiagoVenturaV/Boopay. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
     }
   ]
 }

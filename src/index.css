@@ -1029,6 +1029,8 @@ button {
 
 .project-card {
   flex: 0 0 400px;
+  display: flex;
+  flex-direction: column;
   background: rgba(240, 237, 229, 0.02);
   border: 1px solid rgba(201, 168, 76, 0.08);
   border-radius: 8px;
@@ -1043,9 +1045,12 @@ button {
 }
 
 .project-image {
+  display: block;
+  flex: 0 0 220px;
   width: 100%;
   height: 220px;
   object-fit: cover;
+  object-position: top;
   filter: brightness(0.9) saturate(0.9);
   transition: filter 0.4s ease;
 }
@@ -1056,6 +1061,47 @@ button {
 
 .project-info {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.projects-hint {
+  font-size: 0.85rem;
+  color: rgba(240, 237, 229, 0.65);
+  margin-top: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.project-cover {
+  flex: 0 0 220px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.5rem 2rem;
+  background: var(--green-dark);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  color: var(--gold-light);
+}
+
+.project-cover-icon {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.25;
+}
+
+.project-cover strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.project-cover span {
+  font-size: 0.8rem;
+  color: var(--off-white);
 }
 
 .project-title {
@@ -1092,7 +1138,33 @@ button {
 
 .project-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  margin-top: auto;
+}
+
+.project-links svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.projects-carousel:focus-visible,
+.project-links a:focus-visible,
+.carousel-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-image {
+    transition: none;
+  }
+
+  .project-card:hover {
+    transform: none;
+  }
 }
 
 .project-links a {
