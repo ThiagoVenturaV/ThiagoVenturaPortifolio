@@ -9,11 +9,13 @@ O portfólio sorteia uma katana por carregamento: a original, Wadō Ichimonji, S
 | Opção | Arquivo | Tamanho aproximado |
 | --- | --- | --- |
 | Original | `public/katana-sheathed.glb` | 6,97 MB |
-| Wadō Ichimonji | `public/katanas/wado.glb` | 3,93 MB |
-| Sandai Kitetsu | `public/katanas/sandai.glb` | 4,57 MB |
-| Enma | `public/katanas/enma.glb` | 4,15 MB |
+| Wadō Ichimonji | `public/katanas/wado.glb` | 4,23 MB |
+| Sandai Kitetsu | `public/katanas/sandai.glb` | 4,84 MB |
+| Enma | `public/katanas/enma.glb` | 4,34 MB |
 
-Os arquivos da katana original foram preservados. Os três novos são derivados para web dos modelos autorais completos entregues neste trabalho, com bainha, materiais PBR e o cabo de tecido revisado da Wadō. A geometria foi reduzida para aproximadamente 118–149 mil triângulos por conjunto; as texturas foram redimensionadas e incorporadas ao GLB. Os arquivos Blender completos e suas texturas de alta resolução permanecem na entrega `zoro-katanas`, fora deste repositório.
+Os arquivos da katana original foram preservados. Os três novos são derivados para web dos modelos autorais completos entregues neste trabalho, com bainha, materiais PBR e o cabo de tecido revisado da Wadō. A geometria foi reduzida para aproximadamente 122–151 mil triângulos por conjunto; as texturas foram redimensionadas e incorporadas ao GLB. Os arquivos Blender completos e suas texturas de alta resolução permanecem na entrega `zoro-katanas`, fora deste repositório.
+
+As lâminas preservam integralmente seus 4.108 triângulos. Na primeira exportação, o modificador de redução apagava faces porque o GLB importado separa vértices nas emendas de UV e nas arestas de normais distintas. O conversor agora exclui as lâminas dessa redução. Um teste nos GLBs finais verifica que cada lâmina é uma única superfície fechada, sem buracos nem fragmentos desconectados. As URLs usam `?v=2` para evitar reutilizar as versões defeituosas do cache do navegador.
 
 Apenas a opção sorteada é carregada e pré-carregada. O navegador não baixa as outras três. Se o modelo escolhido falhar, a cena tenta a original; se esta também falhar, o conteúdo do portfólio permanece utilizável.
 
@@ -33,9 +35,10 @@ O único ajuste por modelo é o arco local de saque e retorno, calculado a parti
 
 ## Verificação
 
-- `npm test`: sorteio das quatro opções, exclusão da anterior, limites da coreografia, reversibilidade, encaixe, integridade dos modelos e regressões anteriores.
+- `npm test`: sorteio das quatro opções, exclusão da anterior, limites da coreografia, reversibilidade, encaixe, integridade dos modelos, superfície fechada das lâminas e regressões anteriores.
 - `npm run build` e ESLint dos arquivos alterados.
 - Navegador em 1280×720 e 390×844: quatro opções, hero, saque, posição lateral, fechamento e retorno ao início.
+- Inspeção das três lâminas expostas, dos dois lados e em vista inclinada, além da animação no portfólio.
 - Recarregamentos reais, estabilidade durante resize, movimento reduzido e fallback com falha simulada do GLB.
 
 O aviso anterior de bundle JavaScript acima de 500 kB permanece; os GLBs são arquivos separados e apenas um é carregado por visita.

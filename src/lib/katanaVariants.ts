@@ -4,11 +4,11 @@ const modelScale = 4.9 / 1.102;
 export const KATANA_VARIANTS = [
   { id: 'original', name: 'Katana original', url: '/katana-sheathed.glb',
     arc: { radius: 20, centerY: 1, angle: 0.18 } },
-  { id: 'wado', name: 'Wadō Ichimonji', url: '/katanas/wado.glb',
+  { id: 'wado', name: 'Wadō Ichimonji', url: '/katanas/wado.glb?v=2',
     arc: { radius: 4.25 * modelScale, centerY: -0.10, angle: 0.83 / 4.25 } },
-  { id: 'sandai', name: 'Sandai Kitetsu', url: '/katanas/sandai.glb',
+  { id: 'sandai', name: 'Sandai Kitetsu', url: '/katanas/sandai.glb?v=2',
     arc: { radius: 3.85 * modelScale, centerY: -0.10, angle: 0.83 / 3.85 } },
-  { id: 'enma', name: 'Enma', url: '/katanas/enma.glb',
+  { id: 'enma', name: 'Enma', url: '/katanas/enma.glb?v=2',
     arc: { radius: 3.60 * modelScale, centerY: -0.10, angle: 0.83 / 3.60 } },
 ] as const;
 

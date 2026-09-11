@@ -36,7 +36,10 @@ for kind,title in [('wado','Wado_Ichimonji'),('sandai','Sandai_Kitetsu'),('enma'
         ob.animation_data_clear();ob.parent=None;ob.matrix_world=Matrix.Identity(4)
         ob.data.transform(transform@matrix)
         ob.parent=roots[label]
-        if len(ob.data.polygons)>1600:
+        # Imported glTF splits the blade's vertices at sharp normals / UV seams.
+        # Decimation treats those strips as separate surfaces and deletes faces.
+        # Keep its modest 4,108 triangles intact to preserve the closed steel shell.
+        if not ob.name.endswith('.Blade') and len(ob.data.polygons)>1600:
             bpy.context.view_layer.objects.active=ob
             mod=ob.modifiers.new('Browser mesh reduction','DECIMATE');mod.ratio=ratio
             bpy.ops.object.modifier_apply(modifier=mod.name)
