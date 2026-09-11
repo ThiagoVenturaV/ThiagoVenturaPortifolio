@@ -18,6 +18,20 @@ export function useLenis() {
 
     lenisRef.current = lenis;
 
+    // Every in-page navigation uses the same controller as the wheel.
+    // Native smooth scroll would otherwise compete with Lenis's RAF updates.
+    const onAnchorClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+      if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return;
+      const id = anchor.getAttribute('href')?.slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      event.preventDefault();
+      lenis.scrollTo(target, { immediate: window.matchMedia('(prefers-reduced-motion: reduce)').matches });
+    };
+    document.addEventListener('click', onAnchorClick);
+
     // Sync Lenis scroll position with GSAP ScrollTrigger on every frame
     lenis.on('scroll', ScrollTrigger.update);
 
@@ -31,9 +45,11 @@ export function useLenis() {
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      document.removeEventListener('click', onAnchorClick);
       lenis.off('scroll', ScrollTrigger.update);
       gsap.ticker.remove(tickerCallback);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 

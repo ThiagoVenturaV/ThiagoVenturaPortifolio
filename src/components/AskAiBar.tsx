@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { FormEvent, WheelEvent } from 'react';
+import type { FormEvent } from 'react';
 import AssistantMarkdown from './AssistantMarkdown';
 
 type ChatRole = 'user' | 'assistant';
@@ -153,48 +153,6 @@ export default function AskAiBar() {
     };
   }, []);
 
-  const handleShellWheel = (event: WheelEvent<HTMLDivElement>) => {
-    const logElement = logRef.current;
-
-    // Keep wheel interaction inside chat to avoid page-level smooth scroll.
-    event.stopPropagation();
-
-    if (!logElement) {
-      event.preventDefault();
-      return;
-    }
-
-    const targetNode = event.target as Node | null;
-    const insideLog = Boolean(targetNode) && logElement.contains(targetNode);
-
-    if (!insideLog) {
-      event.preventDefault();
-      return;
-    }
-
-    const canScrollLog = logElement.scrollHeight > logElement.clientHeight;
-
-    if (!canScrollLog) {
-      event.preventDefault();
-      return;
-    }
-
-    const atTop = logElement.scrollTop <= 0;
-    const atBottom =
-      logElement.scrollTop + logElement.clientHeight >=
-      logElement.scrollHeight - 1;
-    const scrollingUp = event.deltaY < 0;
-    const scrollingDown = event.deltaY > 0;
-
-    event.preventDefault();
-
-    if ((scrollingUp && atTop) || (scrollingDown && atBottom)) {
-      return;
-    }
-
-    logElement.scrollTop += event.deltaY;
-  };
-
   const sendMessage = async (rawMessage: string) => {
     const message = rawMessage.trim();
     if (!message || isSending) return;
@@ -303,7 +261,6 @@ export default function AskAiBar() {
       className={`ask-ai-shell${isExpanded ? ' ask-ai-shell-expanded' : ''}`}
       aria-label="Assistente virtual do Thiago Ventura"
       aria-expanded={isExpanded}
-      onWheel={handleShellWheel}
     >
       <div className="ask-ai-header">
         <span className="ask-ai-badge">Th.dev</span>

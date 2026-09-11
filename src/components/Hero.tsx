@@ -94,11 +94,6 @@ export default function Hero() {
     };
   }, []);
 
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section id="hero" className="hero" ref={sectionRef}>
       {/* Background */}
@@ -151,14 +146,12 @@ export default function Hero() {
           <a
             href="#projects"
             className="btn-primary"
-            onClick={(e) => handleScroll(e, 'projects')}
           >
             Ver Projetos
           </a>
           <a
             href="#contact"
             className="btn-secondary"
-            onClick={(e) => handleScroll(e, 'contact')}
           >
             Contato
           </a>

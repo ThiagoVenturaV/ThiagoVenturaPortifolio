@@ -26,16 +26,8 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    targetId: string,
-  ) => {
-    e.preventDefault();
+  const handleNavClick = () => {
     setMenuOpen(false);
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
@@ -46,7 +38,7 @@ export default function Navbar() {
       <a
         href="#hero"
         className="nav-logo"
-        onClick={(e) => handleNavClick(e, 'hero')}
+        onClick={handleNavClick}
       >
         <img
           src="/logozoroquadradaSemFundo.png"
@@ -67,22 +59,22 @@ export default function Navbar() {
 
       <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
         <li>
-          <a href="#about" onClick={(e) => handleNavClick(e, 'about')}>
+          <a href="#about" onClick={handleNavClick}>
             Sobre
           </a>
         </li>
         <li>
-          <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')}>
+          <a href="#skills" onClick={handleNavClick}>
             Habilidades
           </a>
         </li>
         <li>
-          <a href="#projects" onClick={(e) => handleNavClick(e, 'projects')}>
+          <a href="#projects" onClick={handleNavClick}>
             Projetos
           </a>
         </li>
         <li>
-          <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>
+          <a href="#contact" onClick={handleNavClick}>
             Contato
           </a>
         </li>
