@@ -261,7 +261,6 @@ button {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  will-change: transform;
 }
 
 .hero-bg {
@@ -467,6 +466,8 @@ button {
 }
 
 .ask-ai-bubble {
+  min-width: 0;
+  overflow-wrap: anywhere;
   max-width: min(95%, 640px);
   font-size: 0.78rem;
   line-height: 1.45;
@@ -487,6 +488,28 @@ button {
   color: rgba(240, 237, 229, 0.88);
   border: 1px solid rgba(240, 237, 229, 0.12);
 }
+
+.assistant-markdown { white-space: normal; line-height: 1.65; }
+.assistant-markdown > * + * { margin-top: 0.7em; }
+.assistant-markdown :is(h1, h2, h3, h4, h5, h6) { font-size: 1.08em; line-height: 1.4; font-weight: 700; color: var(--off-white); }
+.assistant-markdown :is(ul, ol) { padding-left: 1.5em; }
+.assistant-markdown ul { list-style: disc; }
+.assistant-markdown ol { list-style: decimal; }
+.assistant-markdown li + li { margin-top: 0.3em; }
+.assistant-markdown li > p + p { margin-top: 0.5em; }
+.assistant-markdown a { color: var(--gold-light); text-decoration: underline; text-underline-offset: 0.18em; }
+.assistant-markdown a:hover { color: var(--off-white); }
+.assistant-markdown :is(a, pre, .assistant-table):focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.assistant-markdown code { font-family: ui-monospace, monospace; font-size: 0.92em; background: rgba(240, 237, 229, 0.08); padding: 0.1em 0.3em; border-radius: 3px; }
+.assistant-markdown pre { max-width: 100%; overflow-x: auto; padding: 0.75em; background: var(--bg-dark); border-radius: 6px; white-space: pre; }
+.assistant-markdown pre code { padding: 0; background: transparent; overflow-wrap: normal; }
+.assistant-markdown blockquote { padding-left: 0.8em; border-left: 1px solid var(--gold); color: var(--off-white); }
+.assistant-markdown hr { border: 0; border-top: 1px solid rgba(240, 237, 229, 0.2); margin-block: 0.8em; }
+.assistant-table { max-width: 100%; overflow-x: auto; }
+.assistant-table table { width: 100%; border-collapse: collapse; font-size: inherit; }
+.assistant-table :is(th, td) { padding: 0.4em 0.65em; border: 1px solid rgba(240, 237, 229, 0.2); text-align: left; min-width: 6em; }
+.assistant-table th { color: var(--off-white); }
+.assistant-markdown input[type='checkbox'] { accent-color: var(--gold); margin-right: 0.4em; }
 
 .ask-ai-error {
   margin-top: 0.4rem;

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent, WheelEvent } from 'react';
+import AssistantMarkdown from './AssistantMarkdown';
 
 type ChatRole = 'user' | 'assistant';
 
@@ -309,13 +310,17 @@ export default function AskAiBar() {
         <p>Converse "comigo" sobre carreira, stack e contato.</p>
       </div>
 
-      <div className="ask-ai-log" ref={logRef}>
+      <div className="ask-ai-log" ref={logRef} role="log" aria-label="Conversa com o assistente" aria-live="polite" aria-relevant="additions" data-lenis-prevent>
         {messages.slice(-6).map((message, index) => (
           <div
             key={`${message.role}-${index}`}
             className={`ask-ai-row ${message.role}`}
           >
-            <div className="ask-ai-bubble">{message.content}</div>
+            <div className="ask-ai-bubble">
+              {message.role === 'assistant'
+                ? <AssistantMarkdown>{message.content}</AssistantMarkdown>
+                : message.content}
+            </div>
           </div>
         ))}
 
@@ -369,6 +374,7 @@ export default function AskAiBar() {
           onChange={(event) => setInputValue(event.target.value)}
           onFocus={activateConversationMode}
           placeholder="Pergunte qualquer coisa..."
+          aria-label="Sua pergunta para o assistente"
           className="ask-ai-input"
           disabled={isSending}
           maxLength={500}

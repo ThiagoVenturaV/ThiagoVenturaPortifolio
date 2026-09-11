@@ -1,209 +1,126 @@
 import { useRef, useEffect, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Environment } from '@react-three/drei';
 import * as THREE from 'three';
+import { katanaPose, sectionProgress } from '../lib/katanaMotion';
 
-function clamp(v: number, lo: number, hi: number) {
-  return v < lo ? lo : v > hi ? hi : v;
-}
-const L = THREE.MathUtils.lerp;
-
-const scrollStore = { target: 0 };
-
-// ─────────────────────────────────────────────────────────────
-//  COORDINATE NOTES (important for understanding posX/posY):
-//
-//  The blade node has a baked 90° Z quaternion, so local X
-//  maps to world Y. Blade tip (kissaki) is at local X=+3.37,
-//  handle (tsuka) at local X=-1.44.
-//
-//  GROUP rotZ:
-//   PI/2  → horizontal, handle RIGHT tip LEFT
-//   0     → vertical, tip UP   handle DOWN
-//   PI    → vertical, tip DOWN handle UP
-//
-//  Centering corrections:
-//   Horizontal: visual center offset = -(3.37-1.44)/2 × scl
-//               ≈ -0.627 from group posX → set posX ≈ +0.6
-//   Vertical tip-UP  (rotZ=0):  center at +0.579 → posY ≈ -0.6
-//   Vertical tip-DOWN (rotZ=PI): center at -0.579 → posY ≈ +0.6
-// ─────────────────────────────────────────────────────────────
+const MODEL_URL = '/katana-sheathed.glb';
+const SECTION_IDS = ['hero', 'about', 'skills', 'projects', 'contact'];
 
 export default function KatanaModel() {
-  const groupRef = useRef<THREE.Group>(null);
-  const idle = useRef(0);
-  const smooth = useRef(0);
+  const rig = useRef<THREE.Group>(null);
+  const sword = useRef<THREE.Group>(null);
+  const saya = useRef<THREE.Group>(null);
+  const motion = useRef({ target: 0, smooth: 0, reduced: false, initialized: false });
+  const { viewport, size } = useThree();
+  const gltf = useGLTF(MODEL_URL);
 
-  const gltf = useGLTF('/katana.glb');
-
-  // Only the blade node — saya never enters the scene
-  const bladeNode = useMemo(() => {
-    const node = gltf.scene.getObjectByName('Katana');
-    if (!node) return null;
-    node.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.frustumCulled = false;
-        if (child.material) {
-          const mat = child.material as THREE.MeshStandardMaterial;
-          mat.envMapIntensity = 3.0;
-          mat.needsUpdate = true;
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      }
-    });
-    return node;
+  const parts = useMemo(() => {
+    const blade = gltf.scene.getObjectByName('Katana')?.clone(true);
+    const sheath = gltf.scene.getObjectByName('Saya')?.clone(true);
+    const materials: THREE.MeshStandardMaterial[] = [];
+    const sheathMaterials: THREE.MeshStandardMaterial[] = [];
+    for (const part of [blade, sheath]) {
+      part?.traverse((child) => {
+        if (!(child instanceof THREE.Mesh)) return;
+        const originals = Array.isArray(child.material) ? child.material : [child.material];
+        const copies = originals.map((material: THREE.MeshStandardMaterial) => {
+          const copy = material.clone();
+          copy.envMapIntensity = 3;
+          if (part === sheath) {
+            copy.transparent = true;
+            sheathMaterials.push(copy);
+          }
+          materials.push(copy);
+          return copy;
+        });
+        child.material = Array.isArray(child.material) ? copies : copies[0];
+      });
+    }
+    return { blade, sheath, materials, sheathMaterials };
   }, [gltf]);
 
-  // Scroll → progress 0–4  (hero=0, about=1, skills=2, projects=3, contact=4)
+  useEffect(() => () => parts.materials.forEach((material) => material.dispose()), [parts]);
+
   useEffect(() => {
-    const calc = () => {
-      const ids = ['hero', 'about', 'skills', 'projects', 'contact'];
-      const tops = ids.map((id) => document.getElementById(id)?.offsetTop ?? 0);
-      const y = window.scrollY;
-
-      // Prevent division by zero if layout isn't fully ready yet
-      if (tops[tops.length - 1] === 0) return 0;
-
-      for (let i = 0; i < tops.length - 1; i++) {
-        const diff = tops[i + 1] - tops[i];
-        if (diff > 0 && y < tops[i + 1]) {
-          return i + clamp((y - tops[i]) / diff, 0, 1);
-        }
-      }
-      return 4;
-    };
+    const state = motion.current;
+    let tops: number[] = [];
+    let maxScroll = 0;
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onPreference = () => { state.reduced = preference.matches; };
     const onScroll = () => {
-      scrollStore.target = calc();
+      state.target = sectionProgress(window.scrollY, tops, maxScroll);
+      if (!state.initialized) {
+        state.smooth = state.target;
+        state.initialized = true;
+      }
     };
-    onScroll();
-
-    // One frame later, layout is usually more stable than at first effect run.
-    const rafId = requestAnimationFrame(onScroll);
-
-    // Fallback recalculations because DOM layout might take a few ms to stabilize:
-    const t1 = setTimeout(onScroll, 120);
-    const t2 = setTimeout(onScroll, 800);
-    const t3 = setTimeout(onScroll, 2500);
-
-    window.addEventListener('load', onScroll);
-
+    const measure = () => {
+      tops = SECTION_IDS.map((id) => {
+        const element = document.getElementById(id);
+        return element ? element.getBoundingClientRect().top + window.scrollY : 0;
+      });
+      maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      onScroll();
+    };
+    onPreference();
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(document.body);
+    SECTION_IDS.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+    const frame = requestAnimationFrame(measure);
+    preference.addEventListener('change', onPreference);
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('resize', measure, { passive: true });
+    window.addEventListener('load', measure);
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener('load', onScroll);
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      preference.removeEventListener('change', onPreference);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
+      window.removeEventListener('resize', measure);
+      window.removeEventListener('load', measure);
     };
   }, []);
 
-  useFrame((_, dt) => {
-    if (!groupRef.current) return;
-
-    if (Number.isNaN(scrollStore.target)) scrollStore.target = 0;
-    if (Number.isNaN(smooth.current)) smooth.current = 0;
-
-    idle.current += dt;
-    smooth.current += (scrollStore.target - smooth.current) * 0.06;
-    const p = smooth.current;
-
-    const bob = Math.sin(idle.current * 0.8) * 0.025;
-    const wobble = Math.sin(idle.current * 0.55) * 0.012;
-
-    let px: number, py: number;
-    let rx = 0,
-      ry = 0,
-      rz: number;
-    let scl: number;
-
-    const isMobile = window.innerWidth < 768;
-    // On small screens, frustum width is much smaller. Values adjusted to fit nicely.
-    const xBaseCenter = isMobile ? 0.3 : 0.6;
-    const xRight = isMobile ? 0.8 : 3.2; // keep closer to the center to not overflow screen bounds
-    const xLeft = isMobile ? -0.8 : -3.2;
-    const sclBase = isMobile ? 0.35 : 0.6;
-    const sclHero = isMobile ? 0.45 : 0.65;
-
-    // ── 0→1  Hero → Sobre ─────────────────────────────────
-    // Horizontal centered → Vertical right, tip up
-    if (p <= 1) {
-      const t = p;
-      px = L(xBaseCenter, xRight, t);
-      py = L(0.8, -0.6, t);
-      rz = L(Math.PI / 2, 0, t);
-      ry = L(0.2, -0.1, t);
-      rx = L(0.05, 0.0, t);
-      scl = L(sclHero, sclBase, t);
-
-      // ── 1→2  Sobre → Habilidades  (slash: tip-up → tip-down) ─
-    } else if (p <= 2) {
-      const t = p - 1;
-      px = xRight;
-      py = L(-0.6, 0.6, t); // compensates visual center flip
-      rz = t * Math.PI; // 0 → π
-      ry = L(-0.1, 0.1, t);
-      rx = Math.sin(t * Math.PI) * 0.2;
-      scl = sclBase;
-
-      // ── 2→3  Habilidades → Projetos ───────────────────────
-      // Vertical right tip-down → Horizontal centered near title
-    } else if (p <= 3) {
-      const t = p - 2;
-      px = L(xRight, xBaseCenter, t);
-      py = L(0.6, 1.1, t);
-      rz = L(Math.PI, Math.PI / 2, t); // tip-down → horizontal
-      ry = L(0.1, 0.2, t);
-      rx = 0;
-      scl = sclBase;
-
-      // ── 3→4  Projetos → Contato ───────────────────────────
-      // Horizontal centered → Vertical RIGHT, tip up
-    } else {
-      const t = p - 3;
-      px = L(xBaseCenter, xRight, t);
-      py = L(1.1, -0.6, t);
-      rz = L(Math.PI / 2, 0, t); // horizontal → tip-up
-      ry = L(0.2, -0.1, t);
-      rx = 0;
-      scl = sclBase;
-    }
-
-    groupRef.current.position.set(px, py + bob, 0);
-    groupRef.current.rotation.set(rx + wobble * 0.3, ry + wobble, rz);
-    groupRef.current.scale.setScalar(scl);
+  useFrame((_, delta) => {
+    if (!rig.current || !sword.current || !saya.current || document.hidden) return;
+    const state = motion.current;
+    // Frame-rate independent smoothing, without a time-driven idle loop.
+    state.smooth = THREE.MathUtils.damp(state.smooth, state.target, 9, Math.min(delta, 0.1));
+    const pose = katanaPose(state.reduced ? 0 : state.smooth, viewport.width, size.width < 768);
+    rig.current.position.set(pose.x, pose.y, 0);
+    rig.current.rotation.set(pose.rx, pose.ry, pose.rz);
+    rig.current.scale.setScalar(pose.scale);
+    // Reduced motion keeps the sheathed hero still and hides it past the hero.
+    rig.current.visible = !state.reduced || state.target < 0.15;
+    sword.current.position.set(pose.bladeX, pose.bladeY, 0);
+    sword.current.rotation.z = pose.bladeZ;
+    saya.current.position.set(pose.sayaX, pose.sayaY, 0);
+    saya.current.visible = pose.sayaOpacity > 0.001;
+    parts.sheathMaterials.forEach((material) => {
+      material.opacity = pose.sayaOpacity;
+      material.depthWrite = pose.sayaOpacity > 0.98;
+    });
   });
 
-  if (!bladeNode) return null;
-
+  if (!parts.blade || !parts.sheath) return null;
   return (
     <>
       <Environment preset="night" />
       <ambientLight intensity={0.3} />
-      <directionalLight position={[5, 5, 5]} intensity={1.5} castShadow />
+      <directionalLight position={[5, 5, 5]} intensity={1.5} />
       <pointLight position={[-3, 2, 2]} intensity={0.8} color="#c9a84c" />
-      <spotLight
-        position={[0, 5, 0]}
-        angle={0.3}
-        penumbra={1}
-        intensity={0.6}
-        color="#c9a84c"
-        castShadow
-      />
-
-      <group
-        ref={groupRef}
-        position={[0.6, 0.8, 0]}
-        rotation={[0.05, 0.2, Math.PI / 2]}
-        scale={0.65}
-      >
-        <primitive object={bladeNode} />
+      <spotLight position={[0, 5, 0]} angle={0.3} penumbra={1} intensity={0.6} color="#c9a84c" />
+      <group ref={rig} position={[0.6, 0.8, 0]} rotation={[0.05, 0.2, Math.PI / 2]} scale={0.65}>
+        <group ref={sword}><primitive object={parts.blade} /></group>
+        <group ref={saya}><primitive object={parts.sheath} /></group>
       </group>
     </>
   );
 }
 
-useGLTF.preload('/katana.glb');
+useGLTF.preload(MODEL_URL);
