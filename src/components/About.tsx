@@ -1,4 +1,4 @@
-import { useEffect, useRef, type JSX } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -10,6 +10,8 @@ import {
   SiNextdotjs,
   SiNodedotjs,
   SiPython,
+  SiRuby,
+  SiPhp,
   SiPostgresql,
   SiThreedotjs,
   SiGreensock,
@@ -25,6 +27,8 @@ const technologies = [
   { name: 'Next.js', icon: <SiNextdotjs size={18} color="var(--gold)" /> },
   { name: 'Node.js', icon: <SiNodedotjs size={18} color="var(--gold)" /> },
   { name: 'Python', icon: <SiPython size={18} color="var(--gold)" /> },
+  { name: 'Ruby', icon: <SiRuby size={18} color="var(--gold)" /> },
+  { name: 'PHP', icon: <SiPhp size={18} color="var(--gold)" /> },
   { name: 'PostgreSQL', icon: <SiPostgresql size={18} color="var(--gold)" /> },
   { name: 'Three.js', icon: <SiThreedotjs size={18} color="var(--gold)" /> },
   { name: 'GSAP', icon: <SiGreensock size={18} color="var(--gold)" /> },

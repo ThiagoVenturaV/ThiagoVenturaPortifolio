@@ -9,6 +9,8 @@ import {
   SiHtml5, 
   SiNodedotjs, 
   SiPython, 
+  SiRuby,
+  SiPhp,
   SiPostgresql, 
   SiThreedotjs, 
   SiGreensock, 
@@ -55,6 +57,18 @@ const skills = [
     category: 'Backend',
     color: '#3776AB',
     icon: <SiPython size={24} />,
+  },
+  {
+    name: 'Ruby',
+    category: 'Linguagem',
+    color: '#CC342D',
+    icon: <SiRuby size={24} />,
+  },
+  {
+    name: 'PHP',
+    category: 'Linguagem',
+    color: '#777BB4',
+    icon: <SiPhp size={24} />,
   },
   {
     name: 'PostgreSQL',

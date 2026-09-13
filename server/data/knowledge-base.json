@@ -9,7 +9,7 @@
         "sobre",
         "apresentacao"
       ],
-      "content": "Meu nome e Thiago Ventura. Sou desenvolvedor fullstack focado em React, TypeScript, Node.js, Python e experiencias web imersivas com Three.js e GSAP. Gosto de unir design cinematografico com codigo limpo e foco em resultado real para produto e negocio."
+      "content": "Meu nome e Thiago Ventura. Sou desenvolvedor fullstack focado em React, TypeScript, Node.js, Python, Ruby, PHP e experiencias web imersivas com Three.js e GSAP. Gosto de unir design cinematografico com codigo limpo e foco em resultado real para produto e negocio."
     },
     {
       "id": "style",
@@ -41,10 +41,12 @@
         "backend",
         "node",
         "python",
+        "ruby",
+        "php",
         "api",
         "banco"
       ],
-      "content": "No backend eu trabalho com Node.js, Python e APIs REST. Tenho experiencia com PostgreSQL e integracoes de servicos externos para automacao e comunicacao entre sistemas."
+      "content": "No backend eu trabalho com Node.js, Python, Ruby, PHP e APIs REST. Tenho experiencia com PostgreSQL e integracoes de servicos externos para automacao e comunicacao entre sistemas."
     },
     {
       "id": "projects",
