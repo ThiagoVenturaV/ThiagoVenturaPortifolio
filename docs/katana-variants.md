@@ -29,7 +29,7 @@ node scripts/sync-zoro-katanas.mjs ../zoro-katanas/models
 
 ## Iluminação
 
-As três novas usam um ambiente de estúdio com painéis amplos de luz, preenchimento neutro e reflexos laterais. O mapa de iluminação é gerado localmente uma vez; não depende do download de um HDR externo. Ele ilumina os materiais sem mudar o fundo do site. Os valores originais de cor, metalicidade, rugosidade e texturas são preservados. A katana original mantém sua iluminação anterior.
+As três novas usam um ambiente de estúdio com preenchimento neutro controlado e painéis laterais estreitos. A intensidade e a área dos painéis frontais, assim como a luz ambiente e as luzes diretas, foram reduzidas para evitar o aspecto esbranquiçado nas bainhas e no tecido. O ambiente mantém uma base de reflexão para que o aço continue legível durante o giro, com luz lateral para marcar suas bordas. O mapa de iluminação é gerado localmente uma vez; não depende do download de um HDR externo. Ele ilumina os materiais sem mudar o fundo do site. Os valores originais de cor, metalicidade, rugosidade e texturas são preservados. A katana original mantém sua iluminação anterior.
 
 ## Movimento compartilhado
 
