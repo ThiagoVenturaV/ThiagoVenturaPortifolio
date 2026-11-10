@@ -1,6 +1,6 @@
 # Direção individual das capas
 
-Proposta em revisão em 10/11/2026. Não há aprovação para publicação.
+Direção visual aprovada em 10/11/2026 para envio em PR, sem merge.
 A direção uniforme verde/dourado foi descartada pelo usuário. As dez capturas reais existentes permanecem intactas. As novas imagens são ilustrações conceituais sem logos, não screenshots.
 
 | Projeto | Base de identidade | Direção da capa |
