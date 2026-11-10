@@ -33,7 +33,7 @@ Nomes, descrições e tecnologias foram conferidos nos READMEs, manifests e arqu
 
 - **Pilar 360:** aplicação web em Participa360 e protótipo mobile Pilar em Role-Access-Hub. O Agente Participa tem um card próprio: é uma integração de WhatsApp com LangGraph, não o backend da aplicação web.
 - **Recife por Elas:** apresentado como contribuição, pois é um fork público de CK-24681/recife-por-elas. A comparação da branch main identificou 5 commits próprios e alterações em autenticação, uploads, infraestrutura e frontend.
-- **BooPay:** o repositório contém documentação de escopo, arquitetura e roadmap do Squad 45. O card explicita planejamento; não afirma que existe uma aplicação executável.
+- **BooPay:** o README atual informa plataforma, plugin e landing implementados em repositórios privados. O MVP segue aberto, com validações externas pendentes; o card não afirma operação de produção.
 - **Titi:** apresentado como beta, conforme README e site oficial.
 
 ## Repositórios fora dos cards
@@ -79,3 +79,42 @@ A abertura das páginas foi conferida, sem criar contas, enviar mensagens, execu
 - Conferidos 20 IDs únicos, 26 links para repositórios públicos e recuperação do contexto de cada projeto pelo assistente.
 - Revisão no navegador em desktop e em 390 × 844: imagens locais carregando, sem overflow horizontal da página, links dentro dos cards e navegação por setas/Home/End. O último card é acessível e a seta seguinte fica desativada no fim.
 - Dez imagens WebP somam 267.440 bytes. Imagens carregam sob demanda e possuem fallback local na interface.
+
+
+## Atualização proposta em 10/11/2026
+
+O catálogo passa de 20 para 22 cards: inclui 3 projetos e retira o card legado LibrasWidget, conforme pedido do usuário. O repositório LibrasWidget permanece intacto. Esta alteração é uma proposta para revisão; não representa merge nem publicação do site.
+
+| Novo card | Fontes públicas de código e documentação | Limites da descrição |
+| --- | --- | --- |
+| ResolveQA | [Frontend](https://github.com/ThiagoVenturaV/ResolveQA-front), [backend original](https://github.com/moouraajv/ResolveQA) | Projeto colaborativo do Converge Challenge 2026. O modo demo do frontend usa dados sintéticos. Não atribuir autoria exclusiva nem afirmar que as extensões de produção estão todas prontas. |
+| Precinho | [Frontend](https://github.com/ThiagoVenturaV/Precinho), [documentação](https://github.com/ThiagoVenturaV/precinho-docs) | O card descreve o frontend público Angular, com catálogo, chat SSE, carrinho e integração com API. Não afirma operação comercial real nem inclui links para código privado. |
+| Mahoraga Widget | [Código](https://github.com/ThiagoVenturaV/mahoraga-accessibility-widget) | Biblioteca em TypeScript com integração ao VLibras e recursos de leitura e contraste. Sem afirmar certificação WCAG ou equivalência a produtos de terceiros. |
+
+Foram conferidos README, manifests e arquivos relevantes das implementações públicas. Os projetos não recebem links de deploy neste patch, pois as demos não foram validadas para esta atualização. As capas sem imagem foram substituídas por ilustrações conceituais geradas, conforme revisão do usuário. O fork solicitado do backend ResolveQA é uma operação separada: o card mantém a atribuição ao backend original, sem presumir que um fork já tenha sido criado.
+
+### Como adicionar o próximo projeto
+
+1. Adicione um objeto com ID único em `src/data/projects.ts`: `title`, `description`, `category`, `stack` e `github` são obrigatórios.
+2. `image` e `deploy` são opcionais. Sem imagem, `ProjectImage` gera a capa tipográfica. `repositories` agrupa links de código complementar no mesmo card.
+3. Atualize o resumo `projects` e acrescente o trecho do projeto em `server/data/knowledge-base.json`. O assistente não lê os cards automaticamente.
+4. O componente `src/components/Projects.tsx` usa `projects.map`, passa cada objeto pela prop `project` para a capa, e calcula a contagem por `projects.length`. Não há banco de dados nem sincronização automática com GitHub para esse catálogo.
+5. Confira build, testes, layout em desktop e celular e os links. Envie a branch para revisão e abra o PR. Só após aprovação faça merge e siga o fluxo de deploy configurado; este patch não modifica o deploy.
+
+
+### Capas conceituais geradas
+
+A revisão inclui 12 imagens WebP em `public/projects/*-concept.webp`, uma para cada card sem imagem mantido no catálogo: Agente Participa, EloTech, El Sabor, Monitoria GGE, TaskFlow, AVA FICR, Diagnóstico do Pilar, Extrator de Tabelas, BooPay, ResolveQA, Precinho e Mahoraga Widget. As 10 capturas reais anteriores permanecem intactas.
+
+As capas são ilustrações conceituais, não telas dos aplicativos nem evidências de resultados. A direção uniforme verde/dourado foi rejeitada. As capas seguem a identidade de cada projeto, com composição mais clean e sem logos; veja docs/project-cover-identities.md. Não representam geografia real no Diagnóstico do Pilar nem sinais linguísticos específicos em Libras. O tipo `Project` inclui `imageIsIllustration`; imagens desse tipo recebem texto alternativo específico e a indicação visível “Ilustração”. O fallback tipográfico continua funcionando se uma imagem falhar. O componente e o CSS preservam a altura de 220px e recortam as ilustrações pelo centro.
+
+
+### Revisão de conteúdo aprovada para preparação em 10/11
+
+Thiago declarou Mahoraga a versão dois mais completa do LibrasWidget e pediu retirar o card antigo. O card Mahoraga passa a dizer “Evolução do LibrasWidget”. A base do assistente guarda a origem do nome como referência à adaptação do personagem de Jujutsu Kaisen, sem atribuir poderes ou certificação ao software. Nenhum repositório foi apagado por essa retirada do catálogo.
+
+Referências públicas para a pesquisa do personagem e sua roda de adaptação:
+- https://jujutsu-kaisen.fandom.com/wiki/Eight-Handled_Sword_Divergent_Sila_Divine_General_Mahoraga
+- https://www.animesenpai.net/jujutsu-kaisen-mahoraga-the-divine-general-shikigami-explained/
+
+A capa Mahoraga é ilustração original gerada, não uma imagem oficial licenciada nem captura de interface. A indicação “Ilustração” permanece visível.
