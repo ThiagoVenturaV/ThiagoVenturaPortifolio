@@ -57,7 +57,7 @@
         "cases",
         "experiencia"
       ],
-      "content": "O portfólio apresenta 20 projetos: Edson Assist, ServiceFlow, TaskAI, Portfólio com katana 3D, Titi, Hora Certa, Diversa AI, Recife Digital, Pilar 360, Recife por Elas, LibrasWidget, Agente Participa, EloTech, El Sabor, Monitoria GGE, TaskFlow, AVA FICR, Diagnóstico do Pilar, Extrator de Tabelas, BooPay. Os projetos estão na seção Projetos. BooPay está em planejamento, Titi está em beta e Recife por Elas é uma contribuição em projeto colaborativo."
+      "content": "O portfólio apresenta 22 projetos: Edson Assist, ServiceFlow, TaskAI, Portfólio com katana 3D, Titi, Hora Certa, Diversa AI, Recife Digital, Pilar 360, Recife por Elas, Agente Participa, EloTech, El Sabor, Monitoria GGE, TaskFlow, AVA FICR, Diagnóstico do Pilar, Extrator de Tabelas, BooPay, ResolveQA, Precinho, Mahoraga Widget. Os projetos estão na seção Projetos. BooPay tem implementações em repositórios privados e o MVP segue em validação, Titi está em beta e Recife por Elas é uma contribuição em projeto colaborativo. Mahoraga Widget é a evolução do LibrasWidget, segundo Thiago; o card legado foi retirado, mas o repositório permanece intacto."
     },
     {
       "id": "services",
@@ -242,20 +242,6 @@
       "content": "Recife por Elas: Contribuição em plataforma que reúne oportunidades de trabalho, cursos e uma rede de apoio para mulheres e mães solo no Recife. Tecnologias: React, TypeScript, Express, PostgreSQL, Leaflet. Código: https://github.com/ThiagoVenturaV/recife-por-elas. Site de apresentação ou demonstração: https://recife-por-elas.vercel.app/."
     },
     {
-      "id": "project-11",
-      "title": "LibrasWidget",
-      "tags": [
-        "LibrasWidget",
-        "Acessibilidade web",
-        "JavaScript",
-        "VLibras",
-        "Web APIs",
-        "Vite",
-        "LibrasWidget"
-      ],
-      "content": "LibrasWidget: Biblioteca JavaScript que integra VLibras e um menu de acessibilidade com contraste, tamanho do texto, guia de leitura e leitura por voz. Tecnologias: JavaScript, VLibras, Web APIs, Vite. Código: https://github.com/ThiagoVenturaV/LibrasWidget. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
-    },
-    {
       "id": "project-12",
       "title": "Agente Participa",
       "tags": [
@@ -375,13 +361,50 @@
       "title": "BooPay",
       "tags": [
         "BooPay",
-        "Concepção de produto",
+        "Comércio com agentes de IA",
         "Agentic Commerce",
         "Arquitetura",
         "Documentação",
         "Boopay"
       ],
-      "content": "BooPay: Concepção de uma plataforma de comércio conversacional pelo Squad 45. Reúne escopo, arquitetura e roadmap; a aplicação está em planejamento. Tecnologias: Agentic Commerce, Arquitetura, Documentação. Código: https://github.com/ThiagoVenturaV/Boopay. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+      "content": "BooPay: Projeto do Squad 45 para comércio mediado por agentes de IA, com plataforma, plugin e landing implementados. O MVP ainda depende de validações externas. Tecnologias: Agentic Commerce, Arquitetura, Documentação. Código: https://github.com/ThiagoVenturaV/Boopay. Não há link de demonstração validado neste catálogo; indique o código no GitHub."
+    },
+    {
+      "id": "project-21",
+      "title": "ResolveQA",
+      "tags": [
+        "ResolveQA",
+        "Agentes e qualidade de software",
+        "React",
+        "TypeScript",
+        "Python"
+      ],
+      "content": "ResolveQA: Projeto colaborativo do Converge Challenge 2026 para acompanhar a resolução de bugs por agentes, com Kanban, painel administrativo e evidências. O frontend oferece modo de demonstração com dados sintéticos. Tecnologias: React, TypeScript, Python. Código: https://github.com/ThiagoVenturaV/ResolveQA-front. Backend original: https://github.com/moouraajv/ResolveQA. Não há link de demonstração validado neste catálogo; indique o código no GitHub. Não atribuir autoria exclusiva nem resultados de produção."
+    },
+    {
+      "id": "project-22",
+      "title": "Precinho",
+      "tags": [
+        "Precinho",
+        "Comércio conversacional",
+        "Angular",
+        "TypeScript",
+        "SSE"
+      ],
+      "content": "Precinho: Interface de comércio conversacional para o contexto de farmácia, com catálogo, chat em streaming, carrinho e integração com uma API. Projeto com frontend e documentação públicos. Tecnologias: Angular, TypeScript, SSE. Código: https://github.com/ThiagoVenturaV/Precinho. Documentação: https://github.com/ThiagoVenturaV/precinho-docs. Não há link de demonstração validado neste catálogo; indique o código no GitHub. Não atribuir autoria exclusiva nem resultados de produção."
+    },
+    {
+      "id": "project-23",
+      "title": "Mahoraga Widget",
+      "tags": [
+        "Mahoraga Accessibility Widget",
+        "Acessibilidade web",
+        "TypeScript",
+        "VLibras",
+        "Web APIs",
+        "Vite"
+      ],
+      "content": "Mahoraga Widget: Evolução do LibrasWidget: widget de acessibilidade em TypeScript com integração ao VLibras, leitura por voz, ajustes de contraste e ferramentas de leitura. O nome foi inspirado por Thiago na capacidade de adaptação do personagem Mahoraga de Jujutsu Kaisen. Essa referência é a origem do nome, não uma promessa de capacidades do software. Tecnologias: TypeScript, VLibras, Web APIs, Vite. Código público: https://github.com/ThiagoVenturaV/mahoraga-accessibility-widget. Substitui o card legado LibrasWidget; não atribuir certificação de acessibilidade."
     }
   ]
 }
