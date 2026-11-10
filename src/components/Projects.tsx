@@ -19,10 +19,10 @@ function ProjectImage({ project }: { project: Project }) {
     );
   }
 
-  return (
+  const image = (
     <img
       src={project.image}
-      alt={project.title}
+      alt={project.imageIsIllustration ? `Ilustração conceitual de ${project.title}` : project.title}
       className="project-image"
       width="800"
       height="440"
@@ -31,6 +31,15 @@ function ProjectImage({ project }: { project: Project }) {
       draggable={false}
       onError={() => setFailed(true)}
     />
+  );
+
+  if (!project.imageIsIllustration) return image;
+
+  return (
+    <div className="project-illustration">
+      {image}
+      <span className="project-illustration-label">Ilustração</span>
+    </div>
   );
 }
 
