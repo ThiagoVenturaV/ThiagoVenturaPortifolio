@@ -4,13 +4,15 @@ export interface Project {
   description: string;
   category: string;
   image?: string;
+  imageIsIllustration?: boolean;
   stack: string[];
   github: string;
   deploy?: string;
   repositories?: { label: string; url: string }[];
 }
 
-// Public repositories reviewed on 2026-09-11. See docs/project-catalog.md.
+// Initial public repository review: 2026-09-11. Additions reviewed on 2026-11-10.
+// See docs/project-catalog.md for sources and project status.
 // Related codebases share one card; demos are included after checking their pages.
 export const projects: Project[] = [
   {
@@ -206,19 +208,6 @@ export const projects: Project[] = [
     "deploy": "https://recife-por-elas.vercel.app/"
   },
   {
-    "id": 11,
-    "title": "LibrasWidget",
-    "description": "Biblioteca JavaScript que integra VLibras e um menu de acessibilidade com contraste, tamanho do texto, guia de leitura e leitura por voz.",
-    "category": "Acessibilidade web",
-    "stack": [
-      "JavaScript",
-      "VLibras",
-      "Web APIs",
-      "Vite"
-    ],
-    "github": "https://github.com/ThiagoVenturaV/LibrasWidget"
-  },
-  {
     "id": 12,
     "title": "Agente Participa",
     "description": "Agente para WhatsApp com memória por conversa, chamadas de ferramentas e orquestração de diálogos usando LangGraph e a API oficial da Meta.",
@@ -230,7 +219,9 @@ export const projects: Project[] = [
       "WhatsApp API",
       "Docker"
     ],
-    "github": "https://github.com/ThiagoVenturaV/Participa"
+    "github": "https://github.com/ThiagoVenturaV/Participa",
+    "image": "/projects/2-agente-participa-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 13,
@@ -243,7 +234,9 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Vercel"
     ],
-    "github": "https://github.com/ThiagoVenturaV/elotech"
+    "github": "https://github.com/ThiagoVenturaV/elotech",
+    "image": "/projects/7-elotech-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 14,
@@ -256,7 +249,9 @@ export const projects: Project[] = [
       "Express",
       "Mercado Pago"
     ],
-    "github": "https://github.com/ThiagoVenturaV/ElsaborComPix"
+    "github": "https://github.com/ThiagoVenturaV/ElsaborComPix",
+    "image": "/projects/6-el-sabor-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 15,
@@ -269,7 +264,9 @@ export const projects: Project[] = [
       "Docker",
       "Cloudflare Workers"
     ],
-    "github": "https://github.com/ThiagoVenturaV/MonitoriaGGE"
+    "github": "https://github.com/ThiagoVenturaV/MonitoriaGGE",
+    "image": "/projects/10-monitoria-gge-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 16,
@@ -283,7 +280,9 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Docker"
     ],
-    "github": "https://github.com/ThiagoVenturaV/TaskFlow-CRUD-.NET"
+    "github": "https://github.com/ThiagoVenturaV/TaskFlow-CRUD-.NET",
+    "image": "/projects/13-taskflow-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 17,
@@ -296,7 +295,9 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Docker"
     ],
-    "github": "https://github.com/ThiagoVenturaV/AVA-FICR"
+    "github": "https://github.com/ThiagoVenturaV/AVA-FICR",
+    "image": "/projects/3-ava-ficr-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 18,
@@ -309,7 +310,9 @@ export const projects: Project[] = [
       "Plotly",
       "GeoPandas"
     ],
-    "github": "https://github.com/ThiagoVenturaV/testaAI"
+    "github": "https://github.com/ThiagoVenturaV/testaAI",
+    "image": "/projects/5-diagnostico-pilar-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 19,
@@ -323,18 +326,77 @@ export const projects: Project[] = [
       "pandas",
       "OpenPyXL"
     ],
-    "github": "https://github.com/ThiagoVenturaV/Extrator-de-tabela"
+    "github": "https://github.com/ThiagoVenturaV/Extrator-de-tabela",
+    "image": "/projects/8-extrator-tabelas-concept.webp",
+    "imageIsIllustration": true
   },
   {
     "id": 20,
     "title": "BooPay",
-    "description": "Concepção de uma plataforma de comércio conversacional pelo Squad 45. Reúne escopo, arquitetura e roadmap; a aplicação está em planejamento.",
-    "category": "Concepção de produto",
+    "description": "Projeto do Squad 45 para comércio mediado por agentes de IA, com plataforma, plugin e landing implementados. O MVP ainda depende de validações externas.",
+    "category": "Comércio com agentes de IA",
     "stack": [
       "Agentic Commerce",
       "Arquitetura",
       "Documentação"
     ],
-    "github": "https://github.com/ThiagoVenturaV/Boopay"
+    "github": "https://github.com/ThiagoVenturaV/Boopay",
+    "image": "/projects/4-boopay-concept.webp",
+    "imageIsIllustration": true
+  },
+  {
+    "id": 21,
+    "title": "ResolveQA",
+    "description": "Projeto colaborativo do Converge Challenge 2026 para acompanhar a resolução de bugs por agentes, com Kanban, painel administrativo e evidências. O frontend oferece modo de demonstração com dados sintéticos.",
+    "category": "Agentes e qualidade de software",
+    "stack": [
+      "React",
+      "TypeScript",
+      "Python"
+    ],
+    "github": "https://github.com/ThiagoVenturaV/ResolveQA-front",
+    "repositories": [
+      {
+        "label": "Backend original",
+        "url": "https://github.com/moouraajv/ResolveQA"
+      }
+    ],
+    "image": "/projects/12-resolveqa-concept.webp",
+    "imageIsIllustration": true
+  },
+  {
+    "id": 22,
+    "title": "Precinho",
+    "description": "Interface de comércio conversacional para o contexto de farmácia, com catálogo, chat em streaming, carrinho e integração com uma API. Projeto com frontend e documentação públicos.",
+    "category": "Comércio conversacional",
+    "stack": [
+      "Angular",
+      "TypeScript",
+      "SSE"
+    ],
+    "github": "https://github.com/ThiagoVenturaV/Precinho",
+    "repositories": [
+      {
+        "label": "Documentação",
+        "url": "https://github.com/ThiagoVenturaV/precinho-docs"
+      }
+    ],
+    "image": "/projects/11-precinho-concept.webp",
+    "imageIsIllustration": true
+  },
+  {
+    "id": 23,
+    "title": "Mahoraga Widget",
+    "description": "Evolução do LibrasWidget: widget de acessibilidade em TypeScript com integração ao VLibras, leitura por voz, ajustes de contraste e ferramentas de leitura.",
+    "category": "Acessibilidade web",
+    "stack": [
+      "TypeScript",
+      "VLibras",
+      "Web APIs",
+      "Vite"
+    ],
+    "github": "https://github.com/ThiagoVenturaV/mahoraga-accessibility-widget",
+    "image": "/projects/9-mahoraga-widget-concept.webp",
+    "imageIsIllustration": true
   }
 ];
