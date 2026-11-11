@@ -1750,3 +1750,29 @@ button {
 [vw] {
   z-index: 999999 !important;
 }
+
+
+/* Generated conceptual covers are distinct from the existing real captures. */
+.project-illustration {
+  position: relative;
+  flex: 0 0 220px;
+  height: 220px;
+  overflow: hidden;
+}
+
+.project-illustration .project-image {
+  object-position: center;
+}
+
+.project-illustration-label {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 3px;
+  background: rgba(9, 12, 9, 0.85);
+  color: var(--gold-light);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+}
